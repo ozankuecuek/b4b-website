@@ -19,6 +19,9 @@ export default function HeroSection() {
   const [cardHeight, setCardHeight] = useState<number | null>(null)
   const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({ x: 200, y: 360 })
 
+  // Logo color state based on background
+  const [isOnWhiteBackground, setIsOnWhiteBackground] = useState(false)
+
   // Path data for smoother, curvy cursor motion
   const [cursorPath, setCursorPath] = useState<string>("")
   // Offset-distance percentage landmarks for each cursorStep along the path
@@ -35,6 +38,44 @@ export default function HeroSection() {
 
   // Staggered benefit reveal state
   const [visibleBenefits, setVisibleBenefits] = useState(0)
+
+  // Scroll detection for logo color change
+  useEffect(() => {
+    const handleScroll = () => {
+      const problemSection = document.querySelector('section[class*="bg-white"]') // The white problem section
+      
+      if (problemSection) {
+        const problemRect = problemSection.getBoundingClientRect()
+        
+        // Change color only when the white background section is actually visible in the viewport
+        // Check if the top of the problem section has reached the top of the viewport
+        const whiteBackgroundReached = problemRect.top <= 0
+        
+        setIsOnWhiteBackground(whiteBackgroundReached)
+      }
+    }
+
+    // Initial check
+    handleScroll()
+    
+    // Add scroll listener with throttling for better performance
+    let ticking = false
+    const scrollListener = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
+      }
+    }
+    
+    window.addEventListener('scroll', scrollListener, { passive: true })
+    
+    return () => {
+      window.removeEventListener('scroll', scrollListener)
+    }
+  }, [])
 
   // Calculate the target position (center of b4b button) after first render
   useLayoutEffect(() => {
@@ -159,9 +200,9 @@ export default function HeroSection() {
                  viewBox="0 13 115.35 37.55"
                  width="125"
                  height="40"
-                 className="w-20 h-auto xl:w-28">
+                 className="w-20 h-auto xl:w-28 transition-colors duration-300">
               <defs/>
-              <g fill="#A6E1FA">
+              <g fill={isOnWhiteBackground ? "hsl(225, 84%, 24%)" : "#A6E1FA"}>
                 {/* Runic sign */}
                 <g transform="translate(0, -4.2)">
                   <path d="M3.75 33.80L0 28.55L0 23.95L6.95 17.20L6.95 22.20L3.45 25.70L3.45 26.00L7.20 31.20L3.75 33.80M8.75 41.30L8.75 36.30L12.25 32.80L12.25 32.50L8.50 27.30L11.95 24.70L15.70 29.95L15.70 34.55L8.75 41.30Z"/>

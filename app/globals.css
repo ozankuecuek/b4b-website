@@ -91,6 +91,9 @@
   --font-primary: 'Lexend', sans-serif;
   --font-secondary: 'Poppins', sans-serif;
   --font-tertiary: 'Source Code Pro', monospace;
+  
+  /* Animations */
+  --animate-shine: shine var(--duration, 14s) linear infinite;
 }
 
 @layer base {
@@ -203,4 +206,14 @@
   stroke-dasharray: 400;
   stroke-dashoffset: 400;
   animation: draw-underline 3.6s ease forwards 1.4s;
+}
+
+/* Shine border animation */
+@keyframes shine {
+  0% {
+    background-position: -200% -200%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
 }
