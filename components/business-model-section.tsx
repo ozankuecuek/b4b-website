@@ -65,7 +65,7 @@ export default function BusinessModelSection() {
   ]
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: 'hsl(225, 84%, 24%)' }}>
+    <section data-section="business-model" className="relative py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: 'hsl(225, 84%, 24%)' }}>
       {/* Interactive Grid Pattern Background */}
       <InteractiveGridPattern
         width={60}

@@ -12,7 +12,11 @@ import {
   Layers3,
   Target,
   ChevronRight,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react"
+import { useState } from "react"
+import { ShineBorder } from "./magicui/shine-border"
 
 export default function GoToMarketSection() {
   return (
@@ -78,7 +82,7 @@ function ResolutionPillars() {
   const pillars = [
     { 
       pillar: "Early Adopter Exclusivity", 
-      action: "5–10 marquee distributors granted vertical exclusivity",
+      action: "We offer exclusive perks, like a reduced MDR or custom integration services, to our early adopters.",
       icon: Handshake,
       bgColor: "bg-secondary/50",
       iconBg: "bg-primary",
@@ -87,7 +91,7 @@ function ResolutionPillars() {
     },
     { 
       pillar: "Geographic Wedge", 
-      action: "Germany-first strategy for concentrated market penetration",
+      action: "Germany-first supplier strategy for concentrated market penetration. Other relevant supplier markets are: France, UK, US. Neighbouring countries buyer strategy to add cross-border sales to launch value proposition.",
       icon: Globe,
       bgColor: "bg-secondary/50",
       iconBg: "bg-primary",
@@ -96,7 +100,7 @@ function ResolutionPillars() {
     },
     { 
       pillar: "Vertical Specialization", 
-      action: "Deep focus on Industrial MRO expertise & relationships",
+      action: "Deep focus on one industry to maximize network relevance for suppliers and buyers. The vertical must be large enough and the supplier-buyer needs must be constituted in a way that a limited launch scope does not harm our value proposition significantly.",
       icon: Layers3,
       bgColor: "bg-secondary/50", 
       iconBg: "bg-primary",
@@ -108,7 +112,7 @@ function ResolutionPillars() {
   return (
     <div className="relative">
       <h3 className="text-3xl font-bold text-center mb-16">
-        Three <span className="text-primary">Pillars</span> to jump-start the network
+        Three <span className="text-primary"> Strategic Pillars</span> to jump-start the network
       </h3>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
@@ -122,11 +126,16 @@ function ResolutionPillars() {
             </div>
             
             {/* Main Card */}
-            <div className={`relative ${bgColor} rounded-3xl p-8 h-full shadow-lg ${hoverShadow} group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 border border-border`}>
+            <div className={`relative overflow-hidden ${bgColor} rounded-3xl px-6 pt-6 pb-4 h-full shadow-lg ${hoverShadow} group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-2 border border-border ${
+              pillar === "Vertical Specialization" ? "border-2 border-primary/30" : ""
+            }`}>
+              {pillar === "Vertical Specialization" && (
+                <ShineBorder shineColor={["#A07CFE", "#FE8FB5", "#FFBE7B"]} duration={25} />
+              )}
               
               {/* Content */}
               <div className="relative z-10">
-                <div className="flex items-center gap-4 mb-6">
+                <div className="flex items-center gap-4 mb-4">
                   <div className={`w-12 h-12 rounded-xl ${iconBg} flex items-center justify-center group-hover:rotate-6 transition-transform duration-300`}>
                     <Icon className="w-6 h-6 text-primary-foreground" />
                   </div>
@@ -154,21 +163,24 @@ function ResolutionPillars() {
 function LaunchStrategy() {
   const verticalPoints = [
     "Industrial Supplies combines MRO & Construction consumables",
-    "High repeat volume, fragmented supplier landscape", 
-    "Dense buyer–supplier graph in German industrial hubs",
+    "B2B e-commerce was sized around 113 Billion € in Germany in 2023 (ECC Köln B2B Marktmonitor - 2024)",
+    "High repeat volume, with fragmented, yet dense supplier-buyer landscape", 
+    "Suppliers are usually wholesalers with wide product selection or manufacturerers with deep product specialization",
   ]
 
   const buyerCriteria = [
-    "20-200 employees · €5-50 m revenue",
-    "≥€150 k annual indirect MRO spend",
-    "Lean procurement team, no EDI, urgent downtime risk",
+    "Craft workshops, technician services, construction contractors, small manufacturers, installers, facility managers",
+    "1% to 5% of turnover allocated to Industrial Supplies spend",
+    "Transaction potential between lower and top tier B2B buyers ranges from 50 k to 2.5 m €",
+    "Lean procurement team, no EDI or Enterprise ERP & Procurement suites",
+    "Suggests a launch scope without translation engine and procurement suite integrations",
+    "Limited scope = strategic wedge: Our product is a lean and specialized procurement suite for SMEs"
   ]
 
   const categories = [
-    "Hand & power tools", "Machinery spares", "Fasteners", "PPE",
-    "Industrial consumables", "Electrical components", "Automation parts", 
-    "Material-handling gear", "Maintenance chemicals", "Site safety infrastructure",
-    "Office/facility consumables",
+    "Hand & power tools", "Machinery spares", "Fasteners", 
+    "Personal Protective Equipment", "Electrical components", 
+    "Maintenance chemicals", "Site safety infrastructure", "Office/facility consumables"
   ]
 
   return (
@@ -216,11 +228,11 @@ function LaunchStrategy() {
             </div>
             <div>
               <h4 className="text-xl font-bold text-foreground">Target Buyers</h4>
-              <p className="text-primary font-semibold">Industrial MRO SMEs</p>
+              <p className="text-primary font-semibold">SMEs in Industrial Supplies Vertical</p>
             </div>
           </div>
           <p className="text-muted-foreground mb-4 leading-relaxed">
-            Mid-market companies with urgent procurement needs and lean teams.
+          20-200 employees · €5-50 m revenue
           </p>
           <div className="space-y-3">
             {buyerCriteria.map((criteria, i) => (
@@ -234,14 +246,14 @@ function LaunchStrategy() {
       </div>
 
       {/* Product Coverage */}
-      <div className="bg-background rounded-2xl p-8 shadow-sm border border-border">
+      <div className="bg-background rounded-2xl p-8 shadow-sm border border-border mb-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
             <Boxes className="h-6 w-6 text-primary-foreground" />
           </div>
           <div>
             <h4 className="text-xl font-bold text-foreground">Day 1 Product Coverage</h4>
-            <p className="text-primary font-semibold">11 Core Categories</p>
+            <p className="text-primary font-semibold">What supplies do our Target Buyers need?</p>
           </div>
         </div>
         <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -255,6 +267,124 @@ function LaunchStrategy() {
               {category}
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Target Suppliers */}
+      <TargetSuppliersCard />
+    </div>
+  )
+}
+
+function TargetSuppliersCard() {
+  const [expandedGroups, setExpandedGroups] = useState<Set<number>>(new Set())
+
+  const supplierGroups = [
+    {
+      id: "G1",
+      type: "Electronics & Automation Components",
+      companies: ["ABB", "Automation24", "Balluff", "Bürklin Elektronik", "Conrad Electronic (Conrad Business)", "Digi-Key", "Distrelec", "EU Automation", "Farnell (element14)", "Festo", "HARTING", "ifm", "Lenze", "Mouser Electronics", "Pepperl + Fuchs", "Phoenix Contact", "Pilz", "Reichelt Elektronik", "Rittal", "RS Components", "Schmersal", "Schneider Electric", "Sick (SICK AG)", "Unielektro", "Weidmüller", "WIKA"]
+    },
+    {
+      id: "G2",
+      type: "Tools, Fasteners & MRO Broadliners", 
+      companies: ["Berner", "Brammer", "Brütsch / Rüegger Tools", "BTI", "Contorion", "CRC Industries", "Dresselhaus", "E/D/E group", "Eriks", "Festool", "Förch", "Grainger", "Haberkorn", "Häfele", "Hahn+Kolb", "Henkel (Loctite)", "Hilti", "Hoffmann Group", "Keller & Kalmbach", "Klingspor", "Kontakt Chemie", "LAYER Großhandel", "Makita", "Metabo", "MORAVIA", "REYHER", "Rothenberger", "Rubix", "Sahlberg", "Schrauben-Jäger", "SFS Deutschland", "SVH24", "Toolineo", "Wegertseder", "Würth", "Zoro Tools Germany"]
+    },
+    {
+      id: "G3",
+      type: "PPE, Safety & Facility Supplies",
+      companies: ["3M", "Arbeitsschutz-Express (ASX)", "Brady", "DENIOS", "Engelbert Strauss", "Hygi.de", "Kärcher", "Kroschke", "Lyreco", "Büromarkt Böttcher AG", "SETON", "uvex Safety", "Wempe Arbeitsschutz", "OTTO Office"]
+    },
+    {
+      id: "G4", 
+      type: "Mechanical & Drive Components",
+      companies: ["Bosch Rexroth", "igus", "KSB", "Mädler GmbH", "MISUMI", "Nord Drivesystems", "Norelem", "NSK", "Schaeffler", "SEW-Eurodrive", "SKF", "Trelleborg"]
+    },
+    {
+      id: "G5",
+      type: "Workplace & Material Handling Equipment",
+      companies: ["Fetra", "Jungheinrich", "Kaiser + Kraft", "Manutan", "RAJA (Rajapack)", "UDO Bär"]
+    }
+  ]
+
+  const toggleExpanded = (index: number) => {
+    const newExpanded = new Set(expandedGroups)
+    if (newExpanded.has(index)) {
+      newExpanded.delete(index)
+    } else {
+      newExpanded.add(index)
+    }
+    setExpandedGroups(newExpanded)
+  }
+
+  return (
+    <div className="bg-background rounded-2xl p-8 shadow-sm border border-border">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+          <Handshake className="h-6 w-6 text-primary-foreground" />
+        </div>
+        <div>
+          <h4 className="text-xl font-bold text-foreground">Target B2B Suppliers</h4>
+          <p className="text-primary font-semibold">Portfolio Relevance</p>
+        </div>
+      </div>
+      <p className="text-muted-foreground mb-6 leading-relaxed">
+        We target suppliers whose portfolios directly align with our target buyer needs.
+      </p>
+      <div className="space-y-4">
+        {supplierGroups.map((group, i) => (
+                      <div key={i} className="bg-secondary/30 rounded-xl border border-border/30 hover:bg-secondary/40 transition-colors">
+              <div className="px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="text-xs text-primary font-bold bg-primary/20 px-2 py-1 rounded">
+                      {group.id}
+                    </div>
+                    <h5 className="text-lg font-semibold text-foreground">{group.type}</h5>
+                  </div>
+                  <button
+                    onClick={() => toggleExpanded(i)}
+                    className="p-1 hover:bg-background rounded transition-colors"
+                    aria-label={expandedGroups.has(i) ? 'Collapse companies' : 'Show companies'}
+                  >
+                    {expandedGroups.has(i) ? (
+                      <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            
+            {expandedGroups.has(i) && (
+              <div className="px-6 pb-6">
+                <div className="bg-background rounded-lg p-4 border border-border/50">
+                  <p className="text-xs font-medium text-muted-foreground mb-3">Example Companies:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {group.companies.map((company, companyIndex) => (
+                      <span
+                        key={companyIndex}
+                        className="text-xs bg-secondary/50 text-foreground px-2 py-1 rounded border border-border/30"
+                      >
+                        {company}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="mt-6 p-4 bg-primary/5 rounded-xl border border-primary/20">
+        <div className="flex items-start gap-3">
+          <Target className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-sm font-medium text-foreground mb-1">Strategic Consistency</p>
+            <p className="text-xs text-muted-foreground leading-relaxed">
+              Even at launch, this supplier-buyer alignment ensures immediate transaction relevance for buyers and suppliers.
+            </p>
+          </div>
         </div>
       </div>
     </div>
