@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&family=Poppins:wght@400;500;700&family=Source+Code+Pro:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -88,7 +87,7 @@
   --radius: var(--radius);
   
   /* Corporate Typography System */
-  --font-primary: 'Lexend', sans-serif;
+  --font-primary: var(--font-lexend), sans-serif;
   --font-secondary: 'Poppins', sans-serif;
   --font-tertiary: 'Source Code Pro', monospace;
   
