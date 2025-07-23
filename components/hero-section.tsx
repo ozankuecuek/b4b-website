@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react"
 import { Zap, CreditCard, ShoppingCart, ShieldCheck, ChevronRightIcon, CheckIcon } from "lucide-react"
 import { HyperText } from "@/components/magicui/hyper-text"
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button"
@@ -20,7 +20,7 @@ export default function HeroSection() {
   const b4bButtonRef = useRef<HTMLButtonElement>(null)
   // Maintain consistent card height between login and benefits sides
   const [cardHeight, setCardHeight] = useState<number | null>(null)
-  const [targetPos, setTargetPos] = useState<{ x: number; y: number }>({ x: 200, y: 360 })
+
 
   // Logo color state based on background
   const [isOnWhiteBackground, setIsOnWhiteBackground] = useState(false)
@@ -35,12 +35,19 @@ export default function HeroSection() {
 
   // === Animation timing helpers ===
   const spinDuration = 1000 // ms – duration of the card spin after click
-  const benefitsData = [
+
+  type BenefitItem = {
+    icon: React.ComponentType<{ className?: string; size?: number }>
+    label: string
+    highlight?: boolean
+  }
+
+  const benefitsData: BenefitItem[] = useMemo(() => [
     { icon: Zap, label: "Instant Onboarding" },
     { icon: CreditCard, label: "Instant credit line" },
     { icon: ShoppingCart, label: "Instant orders" },
     { icon: ShieldCheck, label: "Zero risk", highlight: true },
-  ]
+  ], [])
 
   // Staggered benefit reveal state
   const [visibleBenefits, setVisibleBenefits] = useState(0)
@@ -123,7 +130,7 @@ export default function HeroSection() {
         x: btnRect.left - previewRect.left + btnRect.width / 2,
         y: btnRect.top - previewRect.top + btnRect.height / 2,
       }
-      setTargetPos(newTarget)
+
       // Capture the preview card's height to apply to the benefits card later
       setCardHeight(previewRect.height)
 
@@ -156,7 +163,7 @@ export default function HeroSection() {
   }, [])
 
   useEffect(() => {
-    let timers: NodeJS.Timeout[] = []
+    const timers: NodeJS.Timeout[] = []
     const startAnimation = () => {
       setCursorStep(0)
       setCursorClicked(false)
@@ -176,7 +183,7 @@ export default function HeroSection() {
     }
     startAnimation()
     return () => { timers.forEach(clearTimeout) }
-  }, [])
+  }, [benefitsData.length])
 
   useEffect(() => {
     if (clicked) {
@@ -187,16 +194,7 @@ export default function HeroSection() {
     } else {
       setVisibleBenefits(0)
     }
-  }, [clicked])
-
-  // Cursor positions for animation
-  const buildPath = () => [
-    { x: 40, y: 100 },                                     // start off to the side
-    { x: targetPos.x - 120, y: targetPos.y - 150 },        // wander1
-    { x: targetPos.x + 80, y: targetPos.y - 40 },          // wander2
-    { x: targetPos.x + 20, y: targetPos.y + 10 },          // ease onto button edge
-    { x: targetPos.x, y: targetPos.y },                    // exact center (hover + click)
-  ]
+  }, [clicked, benefitsData, spinDuration])
 
   // Remove the old straight-line translation animation and replace it with motion-path-based movement
   const cursorStyle = cursorStep <= 4
@@ -207,7 +205,7 @@ export default function HeroSection() {
         offsetDistance: `${distanceSteps[cursorStep]}%`,
         offsetAnchor: 'center',
         transition: 'offset-distance 0.9s cubic-bezier(0.22, 1, 0.36, 1)',
-      } as any)
+      } as React.CSSProperties)
     : { left: 0, top: 0 }
 
   // Button hover/click state for animation
@@ -451,7 +449,7 @@ export default function HeroSection() {
                         {benefitsData.map((item, idx) => {
                           const Icon = item.icon
                           const isVisible = visibleBenefits > idx
-                          const isHighlighted = (item as any).highlight
+                          const isHighlighted = item.highlight
                           return (
                             <li
                               key={idx}

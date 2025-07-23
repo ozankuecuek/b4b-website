@@ -72,7 +72,7 @@ function DocCheckValidation() {
               Success Story
             </div>
             <h3 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-              Following <span className="text-primary">DocCheck's</span> example
+              Following <span className="text-primary">DocCheck&apos;s</span> example
             </h3>
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               DocCheck built a €100M+ business by becoming the trusted identity provider for healthcare professionals in Europe. Their success validates our approach of specialized identity verification for B2B commerce.
@@ -80,7 +80,7 @@ function DocCheckValidation() {
             <div className="bg-muted/50 rounded-xl p-6">
               <h4 className="font-semibold text-foreground mb-3">Key Insight</h4>
               <p className="text-muted-foreground italic">
-                "Think of b4b as the DocCheck for general B2B e-commerce, but adding financial trust and payment terms to unlock even greater value."
+                &quot;Think of b4b as the DocCheck for general B2B e-commerce, but adding financial trust and payment terms to unlock even greater value.&quot;
               </p>
             </div>
           </div>

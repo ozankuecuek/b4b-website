@@ -142,10 +142,10 @@ function ComparisonTable() {
         </h3>
         
         <p className="text-lg lg:text-xl text-muted-foreground italic font-medium max-w-3xl mx-auto leading-relaxed">
-          "We are not building yet another Payment Service Provider,<br />
+          &quot;We are not building yet another Payment Service Provider,<br />
           <span className="text-primary">
             we build a network company that has finance built-in.
-          </span>"
+          </span>&quot;
         </p>
       </div>
       

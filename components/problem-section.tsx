@@ -1,6 +1,6 @@
 "use client"
 
-import { UserX, CreditCard, Settings, RotateCcw } from "lucide-react"
+import { CreditCard, Settings, RotateCcw } from "lucide-react"
 import { InteractiveGridPattern } from "./magicui/interactive-grid-pattern"
 
 export default function ProblemSection() {

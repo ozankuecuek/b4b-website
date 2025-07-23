@@ -5,15 +5,13 @@ import {
   Zap,
   ShieldCheck,
   CheckCircle,
-  ArrowRightLeft,
-  ShoppingCart,
   Users,
 } from "lucide-react"
 import { InteractiveGridPattern } from "./magicui/interactive-grid-pattern"
 
 type Benefit = {
   title: string
-  icon: any
+  icon: React.ComponentType<{ className?: string; size?: number; style?: React.CSSProperties }>
   description: string
 }
 

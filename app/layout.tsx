@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Lexend, Poppins, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import LanguageSelector from "@/components/language-selector"
 
@@ -11,6 +11,25 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Add your custom fonts using Next.js font optimization
+const lexend = Lexend({
+  variable: "--font-primary",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
+
+const poppins = Poppins({
+  variable: "--font-secondary",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
+
+const sourceCodePro = Source_Code_Pro({
+  variable: "--font-tertiary",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -31,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${poppins.variable} ${sourceCodePro.variable} antialiased`}
       >
         {/* Language selector precisely aligned to the responsive logo's vertical center */}
         {/* Further vertical alignment refinement to center the selector on the logo */}

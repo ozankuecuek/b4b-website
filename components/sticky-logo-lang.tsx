@@ -1,4 +1,4 @@
-import LanguageSelector from "@/components/language-selector"
+// import LanguageSelector from "@/components/language-selector"
 
 interface StickyLogoLangProps {
   isOnWhiteBackground: boolean

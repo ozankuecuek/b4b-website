@@ -7,6 +7,7 @@ import CompetitionSection from "@/components/competition-section"
 import BusinessModelSection from "@/components/business-model-section"
 import GoToMarketSection from "@/components/go-to-market-section"
 import VisionSection from "@/components/vision-section"
+import TeamSection from "@/components/team-section"
 import OurAskSection from "@/components/our-ask-section"
 import ClosingSection from "@/components/closing-section"
 
@@ -22,6 +23,7 @@ export default function Home() {
       <CompetitionSection />
       <GoToMarketSection />
       <VisionSection />
+      <TeamSection />
       <OurAskSection />
       <ClosingSection />
     </>

@@ -1,7 +1,6 @@
 "use client"
 
-import { TrendingUp, Target, Rocket, Clock, Euro, Users, BarChart3 } from "lucide-react"
-import { ShineBorder } from "./magicui/shine-border"
+import { TrendingUp, Target, Rocket, Euro, Users } from "lucide-react"
 
 export default function OurAskSection() {
   const milestones = [
