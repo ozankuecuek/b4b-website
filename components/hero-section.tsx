@@ -6,16 +6,14 @@ import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react"
 import { Zap, CreditCard, ShoppingCart, ShieldCheck, ChevronRightIcon, CheckIcon } from "lucide-react"
 import { HyperText } from "@/components/magicui/hyper-text"
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button"
-import LanguageSelector from "@/components/language-selector"
 import StickyLogoLang from "@/components/sticky-logo-lang"
-import BusinessModelSection from "@/components/business-model-section"
 
 export default function HeroSection() {
   // Animation state for preview
   const [clicked, setClicked] = useState(false)
   const [cursorStep, setCursorStep] = useState(0)
   const [cursorClicked, setCursorClicked] = useState(false)
-  const cursorRef = useRef<HTMLDivElement>(null)
+  // Unused ref removed
   const previewRef = useRef<HTMLDivElement>(null)
   const b4bButtonRef = useRef<HTMLButtonElement>(null)
   // Maintain consistent card height between login and benefits sides
@@ -31,7 +29,7 @@ export default function HeroSection() {
   // Path data for smoother, curvy cursor motion
   const [cursorPath, setCursorPath] = useState<string>("")
   // Offset-distance percentage landmarks for each cursorStep along the path
-  const distanceSteps = [0, 35, 65, 85, 100]
+  const distanceSteps = [0, 35, 65, 85, 100] as const
 
   // === Animation timing helpers ===
   const spinDuration = 1000 // ms – duration of the card spin after click
@@ -53,8 +51,10 @@ export default function HeroSection() {
   const [visibleBenefits, setVisibleBenefits] = useState(0)
 
   // Add state for email and subscribed
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+  const [email, setEmail] = useState("")
+  const [subscribed, setSubscribed] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   // Scroll detection for logo color change
   useEffect(() => {
@@ -163,26 +163,27 @@ export default function HeroSection() {
   }, [])
 
   useEffect(() => {
-    const timers: NodeJS.Timeout[] = []
+    // Use window.setTimeout to ensure numeric ID type in browsers
+    const timers: number[] = []
     const startAnimation = () => {
       setCursorStep(0)
       setCursorClicked(false)
       setClicked(false)
-      timers.push(setTimeout(() => setCursorStep(1), 1200))   // wander1
-      timers.push(setTimeout(() => setCursorStep(2), 2400))   // wander2
-      timers.push(setTimeout(() => setCursorStep(3), 3600))   // near button
-      timers.push(setTimeout(() => setCursorStep(4), 4200))   // hover on button
-      timers.push(setTimeout(() => setCursorClicked(true), 5200)) // click after 1s on button
-      timers.push(setTimeout(() => setClicked(true), 5800))   // show benefits
+      timers.push(window.setTimeout(() => setCursorStep(1), 1200))   // wander1
+      timers.push(window.setTimeout(() => setCursorStep(2), 2400))   // wander2
+      timers.push(window.setTimeout(() => setCursorStep(3), 3600))   // near button
+      timers.push(window.setTimeout(() => setCursorStep(4), 4200))   // hover on button
+      timers.push(window.setTimeout(() => setCursorClicked(true), 5200)) // click after 1s on button
+      timers.push(window.setTimeout(() => setClicked(true), 5800))   // show benefits
       // Calculate total time until all benefits are revealed
       const revealDuration = spinDuration + (benefitsData.length - 1) * 300 // e.g. 1s spin + staggered reveals
       const extraPause = 6000 // Extra 6 s pause so users can comfortably read the benefits
       const timeUntilClicked = 5800 // Total time (ms) until `clicked` becomes true — keep in sync with timers above
       const loopTime = timeUntilClicked + revealDuration + extraPause
-      timers.push(setTimeout(() => startAnimation(), loopTime))   // restart animation after the pause
+      timers.push(window.setTimeout(() => startAnimation(), loopTime))   // restart animation after the pause
     }
     startAnimation()
-    return () => { timers.forEach(clearTimeout) }
+    return () => { timers.forEach((id) => window.clearTimeout(id)) }
   }, [benefitsData.length])
 
   useEffect(() => {
@@ -301,15 +302,35 @@ export default function HeroSection() {
                       border: 'none',
                     }}
                     subscribeStatus={subscribed}
-                    onClick={e => {
-                      if (!subscribed && email) {
-                        setSubscribed(true);
+                    onClick={async e => {
+                      if (e) e.preventDefault()
+                      if (subscribed || isSubmitting) return
+                      setSubmitError(null)
+                      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+                      if (!isValid) {
+                        setSubmitError('Please enter a valid email.')
+                        return
                       }
-                      if (e) e.preventDefault();
+                      try {
+                        setIsSubmitting(true)
+                        const res = await fetch('/api/waitlist', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ email, source: 'hero' }),
+                        })
+                        if (!res.ok) {
+                          throw new Error('Request failed')
+                        }
+                        setSubscribed(true)
+                      } catch (err) {
+                        setSubmitError('Something went wrong. Please try again.')
+                      } finally {
+                        setIsSubmitting(false)
+                      }
                     }}
                   >
                     <span className="group inline-flex items-center">
-                      Join the waitlist
+                      {isSubmitting ? 'Submitting…' : 'Join the waitlist'}
                       <ChevronRightIcon className="ml-1 size-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                     <span className="group inline-flex items-center">
@@ -318,6 +339,9 @@ export default function HeroSection() {
                     </span>
                   </AnimatedSubscribeButton>
                 </div>
+                {submitError && (
+                  <p className="text-sm text-red-200 mt-1">{submitError}</p>
+                )}
                 <p className="text-sm text-white/60">
                 Launching in Germany in 2026 - stay up to date and get early access!
                 </p>
@@ -350,7 +374,6 @@ export default function HeroSection() {
                   {/* Mouse cursor animation */}
                   {!clicked && (
                     <div
-                      ref={cursorRef}
                       className="absolute z-30 pointer-events-none select-none"
                       style={cursorStyle}
                     >

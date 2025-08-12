@@ -8,6 +8,15 @@ interface StickyLogoLangProps {
 }
 
 export default function StickyLogoLang({ isOnWhiteBackground, isOnBusinessModelSection, isOnOurAskSection, isOnClosingSection }: StickyLogoLangProps) {
+  const logoFill = isOnClosingSection
+    ? "hsl(198, 89%, 82%)"
+    : isOnOurAskSection
+    ? "hsl(198, 89%, 82%)"
+    : isOnBusinessModelSection
+    ? "hsl(198, 89%, 82%)"
+    : isOnWhiteBackground
+    ? "hsl(225, 84%, 24%)"
+    : "#A6E1FA"
   return (
     <div className="fixed top-[44px] left-6 sm:left-10 lg:top-[49px] lg:left-32 z-50 flex items-center gap-4">
       <svg xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +25,7 @@ export default function StickyLogoLang({ isOnWhiteBackground, isOnBusinessModelS
            height="40"
            className="w-20 h-auto xl:w-28 transition-colors duration-300">
         <defs/>
-        <g fill={isOnClosingSection ? "hsl(198, 89%, 82%)" : (isOnOurAskSection ? "hsl(198, 89%, 82%)" : (isOnBusinessModelSection ? "hsl(198, 89%, 82%)" : (isOnWhiteBackground ? "hsl(225, 84%, 24%)" : "#A6E1FA"))) }>
+        <g fill={logoFill}>
           {/* Runic sign */}
           <g transform="translate(0, -4.2)">
             <path d="M3.75 33.80L0 28.55L0 23.95L6.95 17.20L6.95 22.20L3.45 25.70L3.45 26.00L7.20 31.20L3.75 33.80M8.75 41.30L8.75 36.30L12.25 32.80L12.25 32.50L8.50 27.30L11.95 24.70L15.70 29.95L15.70 34.55L8.75 41.30Z"/>

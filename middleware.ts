@@ -24,10 +24,20 @@ export function middleware(request: NextRequest) {
     })
   }
 
-  // Decode the base64 credentials
-  const base64Credentials = authorization.split(' ')[1]
-  const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii')
-  const [username, password] = credentials.split(':')
+  // Decode the base64 credentials using Web API (Edge-compatible)
+  const base64Credentials = authorization.split(' ')[1] || ''
+  let decoded = ''
+  try {
+    decoded = atob(base64Credentials)
+  } catch {
+    return new NextResponse('Invalid credentials', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Secure Area"',
+      },
+    })
+  }
+  const [username, password] = decoded.split(':')
 
   // Get credentials from environment variables
   const expectedUsername = process.env.BASIC_AUTH_USERNAME
