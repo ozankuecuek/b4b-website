@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Lexend, Poppins, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import LanguageSelector from "@/components/language-selector"
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
           <LanguageSelector />
         </div>
         {children}
+        <Analytics />
       </body>
     </html>
   );
