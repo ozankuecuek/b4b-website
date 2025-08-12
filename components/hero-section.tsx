@@ -281,8 +281,8 @@ export default function HeroSection() {
                 <div className="flex flex-col sm:flex-row items-center justify-center [@media_(min-width:1300px)_and_(min-height:700px)]:justify-start gap-3 mb-4">
                   <Input
                     type="email"
-                    placeholder="Your work e-mail address"
-                    aria-label="Your work e-mail address"
+                    placeholder="Your e-mail address"
+                    aria-label="Your e-mail address"
                     required
                     className={`w-full sm:w-1/2 px-4 py-3 border border-white/20 focus-visible:border-white focus-visible:ring-white/70 ${subscribed ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-white/95 text-gray-900 placeholder-gray-600'}`}
                     value={email}
