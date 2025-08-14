@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Lexend, Poppins, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import LanguageSelector from "@/components/language-selector"
-import { Analytics } from "@vercel/analytics/next";
+// Analytics is gated by explicit user consent
+import AnalyticsGate from "@/components/analytics-gate";
+import CookieConsent from "@/components/cookie-consent";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,7 +62,9 @@ export default function RootLayout({
           <LanguageSelector />
         </div>
         {children}
-        <Analytics />
+        <Footer />
+        <CookieConsent />
+        <AnalyticsGate />
       </body>
     </html>
   );
