@@ -1,67 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  // Get the authorization header
-  const authorization = request.headers.get('authorization')
+  const { pathname } = request.nextUrl
   
-  // If no authorization header, request basic auth
-  if (!authorization) {
-    return new NextResponse('Authentication required', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    })
+  // Handle locale routing first
+  const locales = ['en-en', 'de-de']
+  const segments = pathname.split('/')
+  const hasLocale = locales.includes(segments[1])
+  
+  // If no locale in path, redirect to default locale
+  if (!hasLocale && pathname === '/') {
+    const url = request.nextUrl.clone()
+    url.pathname = '/en-en'
+    return NextResponse.redirect(url)
   }
-
-  // Check if it's basic auth
-  if (!authorization.startsWith('Basic ')) {
-    return new NextResponse('Invalid authentication method', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    })
-  }
-
-  // Decode the base64 credentials using Web API (Edge-compatible)
-  const base64Credentials = authorization.split(' ')[1] || ''
-  let decoded = ''
-  try {
-    decoded = atob(base64Credentials)
-  } catch {
-    return new NextResponse('Invalid credentials', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    })
-  }
-  const [username, password] = decoded.split(':')
-
-  // Get credentials from environment variables
-  const expectedUsername = process.env.BASIC_AUTH_USERNAME
-  const expectedPassword = process.env.BASIC_AUTH_PASSWORD
-
-  // Check if environment variables are set
-  if (!expectedUsername || !expectedPassword) {
-    console.error('BASIC_AUTH_USERNAME and BASIC_AUTH_PASSWORD environment variables must be set')
-    return new NextResponse('Server configuration error', {
-      status: 500,
-    })
-  }
-
-  // Check if both username and password match
-  if (username !== expectedUsername || password !== expectedPassword) {
-    return new NextResponse('Invalid credentials', {
-      status: 401,
-      headers: {
-        'WWW-Authenticate': 'Basic realm="Secure Area"',
-      },
-    })
-  }
-
-  // Authentication successful, continue to the requested page
+  
+  // Continue to the requested page
   return NextResponse.next()
 }
 

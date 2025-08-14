@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { HTMLMotionProps } from "motion/react";
 import { AnimatePresence, motion } from "motion/react";
-import React, { useState } from "react";
+import React from "react";
 
 interface AnimatedSubscribeButtonProps
   extends Omit<HTMLMotionProps<"button">, "ref"> {
@@ -33,7 +33,9 @@ export const AnimatedSubscribeButton = React.forwardRef<
     },
     ref,
   ) => {
-    const [isSubscribed, setIsSubscribed] = useState<boolean>(subscribeStatus);
+    // Use the external subscribeStatus prop instead of internal state
+    // This allows the parent component to control when the button shows the subscribed state
+    const isSubscribed = subscribeStatus;
 
     if (
       React.Children.count(children) !== 2 ||
@@ -61,7 +63,7 @@ export const AnimatedSubscribeButton = React.forwardRef<
               subscribedClassName,
             )}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-              setIsSubscribed(false);
+              // Let parent component handle the state change
               onClick?.(e);
             }}
             style={{ ...(style as React.CSSProperties), ...(subscribedStyle ?? {}) }}
@@ -87,7 +89,7 @@ export const AnimatedSubscribeButton = React.forwardRef<
               className,
             )}
             onClick={(e) => {
-              setIsSubscribed(true);
+              // Let parent component handle the state change
               onClick?.(e);
             }}
             style={style as React.CSSProperties}

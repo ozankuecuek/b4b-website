@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo } from "react"
 import { Globe } from "lucide-react"
 import {
   DropdownMenu,
@@ -8,13 +8,33 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
+import { usePathname, useRouter } from "next/navigation"
 
 /**
  * A minimal language selector dropdown meant as a shell for future i18n handling.
  * Sticky positioning should be applied by the parent (e.g. fixed top-right in layout).
  */
 export default function LanguageSelector() {
-  const [lang, setLang] = useState<"EN" | "DE">("EN")
+  const router = useRouter()
+  const pathname = usePathname()
+  const currentLang = useMemo<"EN" | "DE">(() => {
+    const segment = pathname?.split("/")[1]?.toLowerCase()
+    return segment === "de-de" ? "DE" : "EN"
+  }, [pathname])
+
+  function switchLang(target: "EN" | "DE") {
+    const localeSegment = target === "DE" ? "de-de" : "en-en"
+    const segments = (pathname || "/").split("/")
+    // Ensure first segment is the locale
+    if (segments.length > 1 && (segments[1] === "en-en" || segments[1] === "de-de")) {
+      segments[1] = localeSegment
+    } else {
+      // If no locale segment (e.g., "/"), prepend it
+      segments.splice(1, 0, localeSegment)
+    }
+    const nextPath = segments.join("/") || `/${localeSegment}`
+    router.push(nextPath)
+  }
 
   return (
     <DropdownMenu>
@@ -29,12 +49,12 @@ export default function LanguageSelector() {
           }}
         >
           <Globe className="size-5" />
-          {lang}
+          {currentLang}
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onSelect={() => setLang("EN")}>EN</DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => setLang("DE")}>DE</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => switchLang("EN")}>EN</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => switchLang("DE")}>DE</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

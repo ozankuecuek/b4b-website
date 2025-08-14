@@ -26,9 +26,9 @@ export default function LayoverModal({ open, title, children, onRequestClose, al
         role="dialog"
         aria-modal="true"
         aria-labelledby="layover-dialog-title"
-        className="relative z-10 w-full max-w-2xl mx-4 bg-card text-card-foreground border rounded-xl shadow-2xl max-h-[85vh] overflow-auto"
+        className="relative z-10 w-full max-w-2xl mx-4 bg-secondary text-secondary-foreground border rounded-xl shadow-2xl max-h-[85vh] overflow-auto"
       >
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-card/95 backdrop-blur px-6 py-4 rounded-t-xl">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b bg-secondary/95 backdrop-blur px-6 py-4 rounded-t-xl">
           <h3 id="layover-dialog-title" className="text-lg font-semibold">
             {title}
           </h3>

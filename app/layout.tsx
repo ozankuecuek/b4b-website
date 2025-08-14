@@ -5,6 +5,7 @@ import LanguageSelector from "@/components/language-selector"
 // Analytics is gated by explicit user consent
 import AnalyticsGate from "@/components/analytics-gate";
 import CookieConsent from "@/components/cookie-consent";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,19 +51,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Read the current locale param when available to set correct html lang
+  const lang = "en"
+  try {
+    // useLocale is client-only; avoid calling in server. Fallback to en.
+    // We'll set html lang heuristically based on pathname later if needed.
+  } catch {}
   return (
-    <html lang="en">
+    <html lang={lang}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${poppins.variable} ${sourceCodePro.variable} antialiased`}
       >
-        {/* Language selector precisely aligned to the responsive logo's vertical center */}
-        {/* Further vertical alignment refinement to center the selector on the logo */}
         <div className="fixed top-[35px] right-6 sm:right-10 lg:top-[40px] lg:right-32 z-50">
           <LanguageSelector />
         </div>
         {children}
         <CookieConsent />
         <AnalyticsGate />
+        <SpeedInsights />
       </body>
     </html>
   );
