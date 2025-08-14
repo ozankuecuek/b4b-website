@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     await supabase.functions.invoke('waitlist-confirmation-email', {
       body: { email, source },
     })
-  } catch (_) {
+  } catch {
     // Intentionally ignore email errors to not block the user
   }
 

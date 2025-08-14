@@ -3,12 +3,16 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react"
+import Link from "next/link"
+import LayoverModal from "@/components/layover-modal"
 import { Zap, CreditCard, ShoppingCart, ShieldCheck, ChevronRightIcon, CheckIcon } from "lucide-react"
 import { HyperText } from "@/components/magicui/hyper-text"
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button"
 import StickyLogoLang from "@/components/sticky-logo-lang"
+import { useTranslations } from "@/lib/i18n"
 
 export default function HeroSection() {
+  const t = useTranslations()
   // Animation state for preview
   const [clicked, setClicked] = useState(false)
   const [cursorStep, setCursorStep] = useState(0)
@@ -41,11 +45,11 @@ export default function HeroSection() {
   }
 
   const benefitsData: BenefitItem[] = useMemo(() => [
-    { icon: Zap, label: "Instant Onboarding" },
-    { icon: CreditCard, label: "Instant credit line" },
-    { icon: ShoppingCart, label: "Instant orders" },
-    { icon: ShieldCheck, label: "Zero risk", highlight: true },
-  ], [])
+    { icon: Zap, label: t.hero.benefits.instantOnboarding },
+    { icon: CreditCard, label: t.hero.benefits.instantCreditLine },
+    { icon: ShoppingCart, label: t.hero.benefits.instantOrders },
+    { icon: ShieldCheck, label: t.hero.benefits.zeroRisk, highlight: true },
+  ], [t.hero.benefits.instantOnboarding, t.hero.benefits.instantCreditLine, t.hero.benefits.instantOrders, t.hero.benefits.zeroRisk])
 
   // Staggered benefit reveal state
   const [visibleBenefits, setVisibleBenefits] = useState(0)
@@ -55,6 +59,25 @@ export default function HeroSection() {
   const [subscribed, setSubscribed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+
+  // Footer links (Imprint / Privacy) replicated locally
+  type LegalModal = "imprint" | "privacy" | null
+  const [openLegal, setOpenLegal] = useState<LegalModal>(null)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenLegal(null)
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [])
+  useEffect(() => {
+    window.openPrivacyPolicy = () => setOpenLegal("privacy")
+    return () => {
+      if (window.openPrivacyPolicy) {
+        delete window.openPrivacyPolicy
+      }
+    }
+  }, [])
 
   // Scroll detection for logo color change
   useEffect(() => {
@@ -219,9 +242,9 @@ export default function HeroSection() {
   return (
     <div className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: 'hsl(225 84% 24%)' }}>
       {/* Background image container */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-cover bg-center hidden [@media_(min-width:1300px)_and_(min-height:700px)]:block z-10"
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-cover bg-center hidden [@media_(min-width:1240px)]:block z-10"
            style={{
-             backgroundImage: 'url("/getty_unsplash_get_premium_2.jpg")',
+             backgroundImage: 'url("/getty_unsplash_get_premium_2.webp")',
              backgroundPosition: 'top right',
              clipPath: 'polygon(15% 0, 100% 0, 100% 100%, 0 100%)'
            }} />
@@ -234,16 +257,17 @@ export default function HeroSection() {
           <StickyLogoLang isOnWhiteBackground={isOnWhiteBackground} isOnBusinessModelSection={isOnBusinessModelSection} isOnOurAskSection={isOnOurAskSection} isOnClosingSection={isOnClosingSection} />
 
           {/* Main Content Grid */}
-          <div className="flex items-center justify-center min-h-screen">
-            <div className="grid grid-cols-1 [@media_(min-width:1300px)_and_(min-height:700px)]:grid-cols-2 items-center justify-items-center [@media_(min-width:1300px)_and_(min-height:700px)]:justify-items-start gap-12 w-full pt-32 [@media_(min-width:1300px)_and_(min-height:700px)]:pt-0">
+          <div className="flex items-center justify-center min-h-screen pb-20 [@media_(min-width:1240px)]:pb-0">
+            <div className="grid grid-cols-1 [@media_(min-width:1240px)]:grid-cols-2 items-center justify-items-center [@media_(min-width:1240px)]:justify-items-start gap-12 w-full pt-32 [@media_(min-width:1240px)]:pt-0">
               
               {/* Left: Text Content */}
-              <div className="animate-in fade-in slide-in-from-left-4 duration-1000 text-center [@media_(min-width:1300px)_and_(min-height:700px)]:text-left [@media_(min-width:1300px)_and_(min-height:700px)]:pr-16">
+              <div className="animate-in fade-in slide-in-from-left-4 duration-1000 text-center [@media_(min-width:1240px)]:text-left [@media_(min-width:1240px)]:pr-16">
                 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
-                  Social&nbsp;Login,<br />
-                  but <span className="relative inline-block highlight-b2b" style={{ color: 'hsl(198 89% 82%)' }}>
-                    built for&nbsp;B2B
+                  {t.hero.titlePrefix}<br />
+                  {t.hero.titleMiddle && <>{t.hero.titleMiddle} </>}
+                  <span className="relative inline-block highlight-b2b" style={{ color: 'hsl(198 89% 82%)' }}>
+                    {t.hero.titleHighlight}
                     {/* Hand-drawn underline SVG */}
                     <svg
                       className="absolute left-0 bottom-0 w-full h-4 pointer-events-none select-none"
@@ -273,16 +297,13 @@ export default function HeroSection() {
                   </span>
                 </h1>
                 
-                <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto [@media_(min-width:1300px)_and_(min-height:700px)]:mx-0">
-                  You like to sign in to online shops using your Google or Apple account? 
-                  We are bringing that frictionless B2C experience to business users - tailored to the unique demands of B2B e-commerce.
-                </p>
+                <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto [@media_(min-width:1240px)]:mx-0">{t.hero.lead}</p>
                 
-                <div className="flex flex-col sm:flex-row items-center justify-center [@media_(min-width:1300px)_and_(min-height:700px)]:justify-start gap-3 mb-4">
+                <div className="flex flex-col sm:flex-row items-center justify-center [@media_(min-width:1240px)]:justify-start gap-3 mb-4">
                   <Input
                     type="email"
-                    placeholder="Your e-mail address"
-                    aria-label="Your e-mail address"
+                    placeholder={t.hero.emailPlaceholder}
+                    aria-label={t.hero.emailAria}
                     required
                     className={`w-full sm:w-1/2 px-4 py-3 border border-white/20 focus-visible:border-white focus-visible:ring-white/70 ${subscribed ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-white/95 text-gray-900 placeholder-gray-600'}`}
                     value={email}
@@ -308,7 +329,7 @@ export default function HeroSection() {
                       setSubmitError(null)
                       const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
                       if (!isValid) {
-                        setSubmitError('Please enter a valid email.')
+                        setSubmitError(t.hero.invalidEmail)
                         return
                       }
                       try {
@@ -322,20 +343,20 @@ export default function HeroSection() {
                           throw new Error('Request failed')
                         }
                         setSubscribed(true)
-                      } catch (err) {
-                        setSubmitError('Something went wrong. Please try again.')
+                      } catch {
+                        setSubmitError(t.hero.errors.generic)
                       } finally {
                         setIsSubmitting(false)
                       }
                     }}
                   >
                     <span className="group inline-flex items-center">
-                      {isSubmitting ? 'Submitting…' : 'Join the waitlist'}
+                      {isSubmitting ? t.hero.submitSubmitting : t.hero.submitJoin}
                       <ChevronRightIcon className="ml-1 size-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
                     <span className="group inline-flex items-center">
                       <CheckIcon className="mr-2 size-4" />
-                      Thanks!
+                      {t.hero.submitThanks}
                     </span>
                   </AnimatedSubscribeButton>
                 </div>
@@ -343,12 +364,12 @@ export default function HeroSection() {
                   <p className="text-sm text-red-200 mt-1">{submitError}</p>
                 )}
                 <p className="text-sm text-white/60">
-                Launching in Germany in 2026 - stay up to date and get early access!
+                {t.hero.launchingNote}
                 </p>
               </div>
 
               {/* Right: Visual Component (Login Form Preview & Animation) */}
-              <div className="flex justify-center [@media_(min-width:1300px)_and_(min-height:700px)]:justify-start">
+              <div className="flex justify-center [@media_(min-width:1240px)]:justify-start">
                 <div
                   className="animate-in fade-in slide-in-from-right-4 duration-1000 delay-200 relative z-10"
                   style={{
@@ -391,11 +412,11 @@ export default function HeroSection() {
                       style={cardHeight ? { height: cardHeight } : undefined}
                     >
                       <div className="text-gray-800 font-semibold mb-6 text-xl">
-                        Sign in to your account
+                        {t.hero.preview.signInToAccount}
                       </div>
                       <form className="space-y-4 mb-4">
                         <div>
-                          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">{t.hero.preview.email}</label>
                           <input
                             type="email"
                             id="email"
@@ -406,7 +427,7 @@ export default function HeroSection() {
                           />
                         </div>
                         <div>
-                          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">{t.hero.preview.password}</label>
                           <input
                             type="password"
                             id="password"
@@ -417,12 +438,12 @@ export default function HeroSection() {
                           />
                         </div>
                         <Button type="button" size="lg" variant="outline" className="w-full font-normal text-sm">
-                          Sign in
+                          {t.hero.preview.signIn}
                         </Button>
                       </form>
                       <div className="flex items-center my-4">
                         <div className="flex-grow border-t border-gray-200"></div>
-                        <span className="mx-3 text-gray-400 text-xs">or</span>
+                        <span className="mx-3 text-gray-400 text-xs">{t.hero.preview.or}</span>
                         <div className="flex-grow border-t border-gray-200"></div>
                       </div>
                       <Button 
@@ -435,7 +456,7 @@ export default function HeroSection() {
                          size="lg"
                          style={{ backgroundColor: 'hsl(225 84% 24%)', color: 'white', border: 'none' }}
                       >
-                        <span style={{ fontFamily: 'Lexend, sans-serif' }}>Sign in with</span>
+                        <span style={{ fontFamily: 'Lexend, sans-serif' }}>{t.hero.preview.signInWith}</span>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 13 115.35 37.55"
@@ -466,7 +487,7 @@ export default function HeroSection() {
                         className="text-gray-800 font-semibold mb-6 text-xl text-center"
                         style={{ fontFamily: 'Lexend, sans-serif' }}
                       >
-                        Why?
+                        {t.hero.preview.why}
                       </div>
                       <ul className="flex flex-col gap-4">
                         {benefitsData.map((item, idx) => {
@@ -518,6 +539,85 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+      {/* Bottom-left legal/cookie links */}
+      <div className="absolute bottom-6 left-6 z-40">
+        <nav className="flex items-center gap-6">
+          <Link
+            href="#imprint"
+            onClick={(e) => { e.preventDefault(); setOpenLegal("imprint") }}
+            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
+          >
+            {t.hero.legal.imprint}
+          </Link>
+          <Link
+            href="#privacy"
+            onClick={(e) => { e.preventDefault(); setOpenLegal("privacy") }}
+            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
+          >
+            {t.hero.legal.privacyPolicy}
+          </Link>
+          <button
+            type="button"
+            onClick={() => window.openCookieSettings?.()}
+            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
+          >
+            {t.hero.legal.cookieSettings}
+          </button>
+        </nav>
+      </div>
+
+      {/* Legal modals */}
+      <LayoverModal
+        open={!!openLegal}
+        title={openLegal === "imprint" ? t.hero.legal.modalTitles.imprint : t.hero.legal.modalTitles.privacy}
+        onRequestClose={() => setOpenLegal(null)}
+        zIndex={openLegal === "privacy" ? 60 : 50}
+      >
+        {openLegal === "imprint" ? <ImprintContent /> : <PrivacyContent />}
+      </LayoverModal>
+    </div>
+  )
+}
+
+function ImprintContent() {
+  const t = useTranslations()
+  return (
+    <div className="prose prose-sm max-w-none">
+      <p><strong>{t.hero.legal.imprintContent.serviceProvider}</strong></p>
+      <p>
+        {t.hero.legal.imprintContent.company.name}<br />
+        {t.hero.legal.imprintContent.company.street}<br />
+        {t.hero.legal.imprintContent.company.city}
+      </p>
+      <p>
+        <strong>{t.hero.legal.imprintContent.representedBy}</strong><br />
+        {t.hero.legal.imprintContent.company.managingDirector}
+      </p>
+      <p>
+        <strong>{t.hero.legal.imprintContent.contact}</strong><br />
+        E‑mail: {t.hero.legal.imprintContent.company.email}
+      </p>
+    </div>
+  )
+}
+
+function PrivacyContent() {
+  const t = useTranslations()
+  return (
+    <div className="prose prose-sm max-w-none">
+      <p className="text-muted-foreground">{t.hero.legal.privacyContent.lastUpdatedPrefix} {new Date().toISOString().slice(0, 10)}</p>
+      <p>{t.hero.legal.privacyContent.intro}</p>
+      <p>{t.hero.legal.privacyContent.controller}</p>
+      <p>{t.hero.legal.privacyContent.dataWeProcess}</p>
+      <p>{t.hero.legal.privacyContent.purposes}</p>
+      <p>{t.hero.legal.privacyContent.legalBases}</p>
+      <p>{t.hero.legal.privacyContent.recipients}</p>
+      <p>{t.hero.legal.privacyContent.transfers}</p>
+      <p>{t.hero.legal.privacyContent.retention}</p>
+      <p>{t.hero.legal.privacyContent.rights}</p>
+      <p>{t.hero.legal.privacyContent.withdrawal}</p>
+      <p>{t.hero.legal.privacyContent.complaint}</p>
+      <p>{t.hero.legal.privacyContent.minors}</p>
     </div>
   )
 }
