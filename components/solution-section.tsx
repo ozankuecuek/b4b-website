@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/carousel"
 import { useState, useEffect } from "react"
 import type { CarouselApi } from "@/components/ui/carousel"
-import { InteractiveGridPattern } from "./magicui/interactive-grid-pattern"
+ 
 
 export default function SolutionSection() {
   const [api, setApi] = useState<CarouselApi>()
@@ -59,51 +59,33 @@ export default function SolutionSection() {
   ]
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/annie-spratt-hCb3lIB8L8E-unsplash.jpg)'
-        }}
-      />
+    <section className="relative pt-24 lg:pt-32 pb-6 lg:pb-8 overflow-hidden bg-primary">
       
-      {/* White Overlay */}
-      <div className="absolute inset-0 bg-white/70" />
       
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50/60 via-blue-50/40 to-indigo-50/60" />
       
-      {/* Interactive Grid Pattern Background */}
-      <InteractiveGridPattern
-        width={60}
-        height={60}
-        squares={[40, 30]}
-        className="absolute inset-0 h-full w-full opacity-25"
-        squaresClassName="fill-transparent stroke-blue-400/40 hover:fill-blue-300/15"
-      />
+      
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <div className="text-center mb-8">
           <div className="inline-block">
-            <span className="text-sm font-semibold text-primary bg-primary/10 px-4 py-2 rounded-full mb-6 inline-block tracking-wider uppercase">
+            <span className="text-sm font-semibold text-primary-foreground bg-primary-foreground/10 px-4 py-2 rounded-full mb-6 inline-block tracking-wider uppercase">
               Solution
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 max-w-4xl mx-auto leading-tight">
-            Federated <span className="text-primary">Identity &</span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-6 max-w-4xl mx-auto leading-tight">
+            Federated <span className="text-accent">Identity &</span>
             <br className="hidden sm:block" />
-            <span className="text-primary">Integration Service</span>
+            <span className="text-accent">Integration Service</span>
             <br className="hidden md:block" />
             for B2B e-commerce
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
+          <p className="text-xl text-primary-foreground/80 max-w-3xl mx-auto leading-relaxed mb-8">
             b4b makes B2B e-commerce as easy as social logins in B2C.
           </p>
         </div>
 
         {/* Main Solution Features Carousel */}
-        <div className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="max-w-7xl mx-auto px-4 pb-4">
           <Carousel
             opts={{
               align: "start",
@@ -152,16 +134,16 @@ export default function SolutionSection() {
                         titleColor: 'text-[hsl(225,84%,24%)] group-hover:text-[hsl(225,84%,20%)]',
                         descColor: 'text-[hsl(225,84%,24%)]/90'
                       }
-                     case 3: // Fourth card - Dark Royal Blue theme
+                    case 3: // Fourth card - Pale Dogwood theme
                        return {
-                         bg: 'bg-[hsl(225,84%,24%)] border-[hsl(225,84%,24%)]/20',
-                         hoverBg: 'hover:bg-[hsl(225,84%,20%)]',
-                         gradientBorder: 'bg-gradient-to-br from-[hsl(198,89%,82%)]/20 via-transparent to-white/10',
-                         iconBg: 'bg-gradient-to-br from-[hsl(198,89%,82%)]/10 to-white/10 group-hover:from-[hsl(198,89%,82%)]/20 group-hover:to-white/20',
-                         iconColor: 'text-[hsl(198,89%,82%)] group-hover:text-white',
-                         badgeColor: 'text-[hsl(198,89%,82%)] bg-[hsl(198,89%,82%)]/10',
-                         titleColor: 'text-[hsl(198,89%,82%)] group-hover:text-white',
-                         descColor: 'text-white/80'
+                         bg: 'bg-chart-3 border-chart-3/40',
+                         hoverBg: 'hover:bg-chart-3/90',
+                         gradientBorder: 'bg-gradient-to-br from-white/40 via-transparent to-white/10',
+                         iconBg: 'bg-gradient-to-br from-white/50 to-white/30 group-hover:from-white/60 group-hover:to-white/40',
+                         iconColor: 'text-foreground group-hover:text-foreground',
+                         badgeColor: 'text-foreground/80 bg-white/50',
+                         titleColor: 'text-foreground group-hover:text-foreground',
+                         descColor: 'text-foreground/90'
                        }
                     default:
                       return getCardTheme(0) // fallback to first theme

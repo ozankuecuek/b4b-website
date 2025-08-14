@@ -29,28 +29,28 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="border-t bg-background">
+      <footer className="border-t border-primary-foreground/20 bg-primary">
         <div className="container mx-auto px-6 lg:px-12 py-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-muted-foreground">© {year} b4b. All rights reserved.</p>
+          <p className="text-sm text-primary-foreground/80">© {year} b4b. All rights reserved.</p>
           <nav className="flex items-center gap-6">
             <Link
               href="#imprint"
               onClick={(e) => { e.preventDefault(); setOpen("imprint") }}
-              className="text-sm text-muted-foreground hover:text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 rounded-sm transition-colors"
+              className="text-sm text-primary-foreground/80 hover:text-primary-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm transition-colors"
             >
               Imprint
             </Link>
             <Link
               href="#privacy"
               onClick={(e) => { e.preventDefault(); setOpen("privacy") }}
-              className="text-sm text-muted-foreground hover:text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 rounded-sm transition-colors"
+              className="text-sm text-primary-foreground/80 hover:text-primary-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm transition-colors"
             >
               Privacy policy
             </Link>
             <button
               type="button"
               onClick={() => window.openCookieSettings?.()}
-              className="text-sm text-muted-foreground hover:text-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 rounded-sm transition-colors"
+              className="text-sm text-primary-foreground/80 hover:text-primary-foreground underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 rounded-sm transition-colors"
             >
               Cookie settings
             </button>
