@@ -5,7 +5,6 @@ import LanguageSelector from "@/components/language-selector"
 // Analytics is gated by explicit user consent
 import AnalyticsGate from "@/components/analytics-gate";
 import CookieConsent from "@/components/cookie-consent";
-import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,7 +61,6 @@ export default function RootLayout({
           <LanguageSelector />
         </div>
         {children}
-        <Footer />
         <CookieConsent />
         <AnalyticsGate />
       </body>
