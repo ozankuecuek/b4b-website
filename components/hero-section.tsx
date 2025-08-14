@@ -559,7 +559,7 @@ export default function HeroSection() {
           <button
             type="button"
             onClick={() => window.openCookieSettings?.()}
-            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
+            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors cursor-pointer"
           >
             {t.hero.legal.cookieSettings}
           </button>

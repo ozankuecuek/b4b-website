@@ -85,7 +85,7 @@ export default function CookieConsent() {
           <button
             type="button"
             onClick={() => window.openPrivacyPolicy?.()}
-            className="underline underline-offset-4 hover:text-foreground"
+            className="underline underline-offset-4 hover:text-foreground cursor-pointer"
           >
             {t.cookies.learnMore}
           </button>
@@ -94,14 +94,14 @@ export default function CookieConsent() {
         <div className="flex flex-col sm:flex-row gap-3 justify-end pt-2">
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm"
+            className="inline-flex items-center justify-center rounded-md border px-4 py-2 text-sm cursor-pointer"
             onClick={() => applyConsent("declined")}
           >
             {t.cookies.reject}
           </button>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm"
+            className="inline-flex items-center justify-center rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm cursor-pointer"
             onClick={() => applyConsent("accepted")}
           >
             {t.cookies.accept}
