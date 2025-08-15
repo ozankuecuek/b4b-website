@@ -72,9 +72,10 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }): Promise<Metadata> {
-  const locale = (params.lang === "de" ? "de" : "en") as Locale;
+  const { lang } = await params;
+  const locale = (lang === "de" ? "de" : "en") as Locale;
   const seo = getSEOTranslations(locale);
 
   return {
@@ -131,14 +132,15 @@ export async function generateMetadata({
   };
 }
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }>) {
-  const lang = params.lang === "de" ? "de" : "en";
+  const { lang: langParam } = await params;
+  const lang = langParam === "de" ? "de" : "en";
   const seo = getSEOTranslations(lang as Locale);
   
   const jsonLd = {

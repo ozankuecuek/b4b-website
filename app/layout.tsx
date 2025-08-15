@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+// Metadata is now handled by the localized layout in app/[lang]/layout.tsx
 import { Geist, Geist_Mono, Lexend, Poppins, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import LanguageSelector from "@/components/language-selector"
