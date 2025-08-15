@@ -4,14 +4,14 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   
   // Handle locale routing first
-  const locales = ['en-en', 'de-de']
+  const locales = ['en', 'de']
   const segments = pathname.split('/')
   const hasLocale = locales.includes(segments[1])
   
   // If no locale in path, redirect to default locale
   if (!hasLocale && pathname === '/') {
     const url = request.nextUrl.clone()
-    url.pathname = '/en-en'
+    url.pathname = '/en'
     return NextResponse.redirect(url)
   }
   

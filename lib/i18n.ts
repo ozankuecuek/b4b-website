@@ -3,18 +3,18 @@
 import { useMemo } from "react"
 import { useParams } from "next/navigation"
 
-export type Locale = "en-en" | "de-de"
+export type Locale = "en" | "de"
 
 export function useLocale(): Locale {
   const params = useParams() as { lang?: string }
-  const langParam = (params?.lang || "en-en").toLowerCase()
-  return (langParam === "de-de" ? "de-de" : "en-en") as Locale
+  const langParam = (params?.lang || "en").toLowerCase()
+  return (langParam === "de" ? "de" : "en") as Locale
 }
 
 type Dictionary = ReturnType<typeof buildDictionary>
 
 function buildDictionary(locale: Locale) {
-  if (locale === "de-de") {
+  if (locale === "de") {
     return {
       ui: {
         imprint: "Impressum",
@@ -43,7 +43,7 @@ function buildDictionary(locale: Locale) {
         submitJoin: "Zur Warteliste anmelden",
         submitThanks: "Danke!",
         launchingNote:
-          "Start in Deutschland 2026 – Up-to-date blieben und frühzeitigen Zugang sichern!",
+          "Start in Deutschland 2026 – Up-to-date bleiben und frühzeitigen Zugang sichern!",
         preview: {
           signInToAccount: "In Ihrem Konto anmelden",
           email: "E‑Mail",
@@ -113,7 +113,7 @@ function buildDictionary(locale: Locale) {
       }
     }
   }
-  // Default: en-en
+  // Default: en
   return {
     ui: {
       imprint: "Imprint",

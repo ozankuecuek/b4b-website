@@ -19,14 +19,14 @@ export default function LanguageSelector() {
   const pathname = usePathname()
   const currentLang = useMemo<"EN" | "DE">(() => {
     const segment = pathname?.split("/")[1]?.toLowerCase()
-    return segment === "de-de" ? "DE" : "EN"
+    return segment === "de" ? "DE" : "EN"
   }, [pathname])
 
   function switchLang(target: "EN" | "DE") {
-    const localeSegment = target === "DE" ? "de-de" : "en-en"
+    const localeSegment = target === "DE" ? "de" : "en"
     const segments = (pathname || "/").split("/")
     // Ensure first segment is the locale
-    if (segments.length > 1 && (segments[1] === "en-en" || segments[1] === "de-de")) {
+    if (segments.length > 1 && (segments[1] === "en" || segments[1] === "de")) {
       segments[1] = localeSegment
     } else {
       // If no locale segment (e.g., "/"), prepend it
