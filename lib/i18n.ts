@@ -110,7 +110,16 @@ function buildDictionary(locale: Locale) {
               "Minderjährige: Unsere Warteliste richtet sich an Personen ab 16 Jahren.",
           },
         },
-      }
+      },
+      seo: {
+        title: "b4b - Social Login für B2B-E-Commerce",
+        description: "Bringen Sie die Social Logins Experience in den B2B-E-Commerce. Sofortiges Onboarding, Kreditlinien und Bestellungen ohne Risiko. Start in Deutschland 2026.",
+        keywords: "B2B Social Login, Business-Authentifizierung, B2B-E-Commerce, Social Sign-in, Business-Login-Lösungen",
+        ogTitle: "b4b - Social Login für B2B-E-Commerce",
+        ogDescription: "Bringen Sie reibungslose Social Logins in den B2B-E-Commerce. Melden Sie sich für unsere Warteliste an und erhalten Sie frühzeitigen Zugang.",
+        twitterTitle: "b4b - Social Login für B2B-E-Commerce",
+        twitterDescription: "Bringen Sie reibungslose Social Logins in den B2B-E-Commerce. Melden Sie sich für unsere Warteliste an und erhalten Sie frühzeitigen Zugang.",
+      },
     }
   }
   // Default: en
@@ -208,6 +217,15 @@ function buildDictionary(locale: Locale) {
           minors:
             "Minors: Our waitlist is intended for persons aged 16 and over.",
         },
+      },
+      seo: {
+        title: "b4b - Social Login Built for B2B E-commerce",
+        description: "We are bringing social logins to B2B e-commerce. Instant onboarding, credit lines, and orders with zero risk. Launching in Germany 2026.",
+        keywords: "B2B social login, business authentication, B2B e-commerce, social sign-in, business login solutions",
+        ogTitle: "b4b - Social Login Built for B2B E-commerce",
+        ogDescription: "Bring frictionless social login to B2B e-commerce. Join our waitlist for early access.",
+        twitterTitle: "b4b - Social Login Built for B2B E-commerce",
+        twitterDescription: "Bring frictionless social login to B2B e-commerce. Join our waitlist for early access.",
       },
     },
   }
