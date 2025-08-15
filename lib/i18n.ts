@@ -163,8 +163,8 @@ function buildDictionary(locale: Locale) {
       },
       benefits: {
         instantOnboarding: "Instant Onboarding",
-        instantCreditLine: "Instant credit line",
-        instantOrders: "Instant orders",
+        instantCreditLine: "Instant Credit Line",
+        instantOrders: "Instant Orders",
         zeroRisk: "Zero risk",
       },
       errors: {
@@ -172,8 +172,8 @@ function buildDictionary(locale: Locale) {
       },
       legal: {
         imprint: "Imprint",
-        privacyPolicy: "Privacy policy",
-        cookieSettings: "Cookie settings",
+        privacyPolicy: "Privacy Policy",
+        cookieSettings: "Cookie Settings",
         modalTitles: {
           imprint: "Imprint",
           privacy: "Privacy policy",
