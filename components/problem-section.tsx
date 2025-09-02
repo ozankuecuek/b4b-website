@@ -2,11 +2,35 @@
 
 import { CreditCard, Settings, RotateCcw } from "lucide-react"
 import Image from "next/image"
-import React from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 
 
 export default function ProblemSection() {
+  const [isVisible, setIsVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      {
+        threshold: window.innerWidth < 768 ? 0.2 : 0.4, // Lower threshold on mobile
+        rootMargin: window.innerWidth < 768 ? '-50px' : '-100px' // Less margin on mobile
+      }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
   const problemCards = [
     {
       icon: CreditCard,
@@ -26,7 +50,7 @@ export default function ProblemSection() {
   ] as const
 
   return (
-    <section className="relative py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: '#E7ECEF' }}>
+    <section ref={sectionRef} className="relative py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: '#E7ECEF' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-block">
@@ -55,12 +79,26 @@ export default function ProblemSection() {
             return (
               <div
                 key={index}
-                className="group relative transition-all duration-500 hover:-translate-y-2"
+                className={`group relative transition-all duration-1000 ease-out hover:-translate-y-2 ${
+                  !isVisible 
+                    ? 'opacity-0 translate-y-8 scale-95' 
+                    : 'opacity-100 translate-y-0 scale-100'
+                }`}
+                style={{
+                  transform: !isVisible 
+                    ? `translateX(${index * 120 - 120}px) translateY(${index * 60}px) scale(0.9) rotateY(${index * 5 - 5}deg)`
+                    : 'translateX(0) translateY(0) scale(1) rotateY(0deg)',
+                  transitionDelay: isVisible ? `${index * 200}ms` : '0ms',
+                  perspective: '1000px'
+                }}
               >
                 {/* Mobile and Tablet: Overlapping layout with central alignment */}
                 <div className="block xl:hidden">
                   {/* Image Card */}
-                  <div className="relative mb-0 transition-transform duration-500">
+                  <div className={`relative mb-0 transition-all duration-700 ease-out ${
+                    !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+                  }`}
+                  style={{ transitionDelay: isVisible ? `${index * 200 + 100}ms` : '0ms' }}>
                     <figure className="relative rounded-2xl shadow-xl overflow-hidden">
                       <Image
                         src={imageSrc}
@@ -81,7 +119,10 @@ export default function ProblemSection() {
                   </div>
 
                   {/* Content Card - Overlapping the image with central alignment and safe margins */}
-                  <div className="relative -mt-8 sm:-mt-12 md:-mt-16 mx-4 sm:mx-6 md:mx-8 transition-transform duration-500 z-10">
+                  <div className={`relative -mt-8 sm:-mt-12 md:-mt-16 mx-4 sm:mx-6 md:mx-8 transition-all duration-700 ease-out z-10 ${
+                    !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                  }`}
+                  style={{ transitionDelay: isVisible ? `${index * 200 + 300}ms` : '0ms' }}>
                     <div className="bg-white rounded-xl shadow-xl p-4 sm:p-6 border border-gray-100">
                       {/* Icon indicator */}
                       <div className="flex items-center mb-3 sm:mb-4">
@@ -119,7 +160,10 @@ export default function ProblemSection() {
                   {index === 1 ? (
                     <>
                       {/* Content Card - Above image for second card */}
-                      <div className="relative mb-0 ml-8 -mr-6 transition-transform duration-500 z-10">
+                      <div className={`relative mb-0 ml-8 -mr-6 transition-all duration-700 ease-out z-10 ${
+                        !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                      }`}
+                      style={{ transitionDelay: isVisible ? `${index * 200 + 200}ms` : '0ms' }}>
                         <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100">
                           {/* Icon indicator */}
                           <div className="flex items-center mb-4">
@@ -151,7 +195,10 @@ export default function ProblemSection() {
                       </div>
 
                       {/* Image Card - Below content for second card */}
-                      <div className="relative -mt-20 transition-transform duration-500">
+                      <div className={`relative -mt-20 transition-all duration-700 ease-out ${
+                        !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+                      }`}
+                      style={{ transitionDelay: isVisible ? `${index * 200 + 400}ms` : '0ms' }}>
                         <figure className="relative inline-block rounded-2xl shadow-xl overflow-hidden">
                           <Image
                             src={imageSrc}
@@ -172,7 +219,10 @@ export default function ProblemSection() {
                   ) : (
                     <>
                       {/* Image Card - Elevated (for first and third cards) */}
-                      <div className="relative mb-0 transition-transform duration-500">
+                      <div className={`relative mb-0 transition-all duration-700 ease-out ${
+                        !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+                      }`}
+                      style={{ transitionDelay: isVisible ? `${index * 200 + 100}ms` : '0ms' }}>
                         <figure className="relative inline-block rounded-2xl shadow-xl overflow-hidden">
                           <Image
                             src={imageSrc}
@@ -191,7 +241,10 @@ export default function ProblemSection() {
                       </div>
 
                       {/* Content Card - Barely overlapping the image (for first and third cards) */}
-                      <div className="relative -mt-4 ml-8 -mr-6 transition-transform duration-500 z-10">
+                      <div className={`relative -mt-4 ml-8 -mr-6 transition-all duration-700 ease-out z-10 ${
+                        !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                      }`}
+                      style={{ transitionDelay: isVisible ? `${index * 200 + 300}ms` : '0ms' }}>
                         <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100">
                           {/* Icon indicator */}
                           <div className="flex items-center mb-4">
@@ -230,7 +283,10 @@ export default function ProblemSection() {
         </div>
 
         {/* Bottom summary */}
-        <div className="mt-12 sm:mt-16 text-center">
+        <div className={`mt-12 sm:mt-16 text-center transition-all duration-700 ease-out ${
+          !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+        }`}
+        style={{ transitionDelay: isVisible ? '800ms' : '0ms' }}>
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               <span className="font-semibold text-foreground">The result?</span> What should be simple business discovery becomes an expensive, time-consuming barrier that limits growth potential for both buyers and suppliers.
