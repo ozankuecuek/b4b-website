@@ -182,15 +182,14 @@ export default async function LocaleLayout({
   
   return (
     <html lang={lang}>
-      <head>
+      <head />
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${poppins.variable} ${sourceCodePro.variable} antialiased`}
+      >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${lexend.variable} ${poppins.variable} ${sourceCodePro.variable} antialiased`}
-      >
         <div className="fixed top-[35px] right-6 sm:right-10 lg:top-[40px] lg:right-32 z-50">
           <LanguageSelector />
         </div>
