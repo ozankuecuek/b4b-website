@@ -19,8 +19,8 @@ export default function ProblemSection() {
         }
       },
       {
-        threshold: window.innerWidth < 768 ? 0.2 : 0.4, // Lower threshold on mobile
-        rootMargin: window.innerWidth < 768 ? '-50px' : '-100px' // Less margin on mobile
+        threshold: 0.1, // Much lower threshold for better mobile experience
+        rootMargin: '-20px' // Minimal margin to ensure early triggering
       }
     )
 
@@ -86,10 +86,9 @@ export default function ProblemSection() {
                 }`}
                 style={{
                   transform: !isVisible 
-                    ? `translateX(${index * 120 - 120}px) translateY(${index * 60}px) scale(0.9) rotateY(${index * 5 - 5}deg)`
-                    : 'translateX(0) translateY(0) scale(1) rotateY(0deg)',
-                  transitionDelay: isVisible ? `${index * 200}ms` : '0ms',
-                  perspective: '1000px'
+                    ? `translateY(30px) scale(0.95)`
+                    : 'translateY(0) scale(1)',
+                  transitionDelay: isVisible ? `${index * 150}ms` : '0ms'
                 }}
               >
                 {/* Mobile and Tablet: Overlapping layout with central alignment */}
@@ -98,7 +97,7 @@ export default function ProblemSection() {
                   <div className={`relative mb-0 transition-all duration-700 ease-out ${
                     !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                   }`}
-                  style={{ transitionDelay: isVisible ? `${index * 200 + 100}ms` : '0ms' }}>
+                  style={{ transitionDelay: isVisible ? `${index * 150 + 100}ms` : '0ms' }}>
                     <figure className="relative rounded-2xl shadow-xl overflow-hidden">
                       <Image
                         src={imageSrc}
@@ -120,9 +119,9 @@ export default function ProblemSection() {
 
                   {/* Content Card - Overlapping the image with central alignment and safe margins */}
                   <div className={`relative -mt-8 sm:-mt-12 md:-mt-16 mx-4 sm:mx-6 md:mx-8 transition-all duration-700 ease-out z-10 ${
-                    !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                    !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                   }`}
-                  style={{ transitionDelay: isVisible ? `${index * 200 + 300}ms` : '0ms' }}>
+                  style={{ transitionDelay: isVisible ? `${index * 150 + 200}ms` : '0ms' }}>
                     <div className="bg-white rounded-xl shadow-xl p-4 sm:p-6 border border-gray-100">
                       {/* Icon indicator */}
                       <div className="flex items-center mb-3 sm:mb-4">
@@ -161,9 +160,9 @@ export default function ProblemSection() {
                     <>
                       {/* Content Card - Above image for second card */}
                       <div className={`relative mb-0 ml-8 -mr-6 transition-all duration-700 ease-out z-10 ${
-                        !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                        !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                       }`}
-                      style={{ transitionDelay: isVisible ? `${index * 200 + 200}ms` : '0ms' }}>
+                      style={{ transitionDelay: isVisible ? `${index * 150 + 150}ms` : '0ms' }}>
                         <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100">
                           {/* Icon indicator */}
                           <div className="flex items-center mb-4">
@@ -198,7 +197,7 @@ export default function ProblemSection() {
                       <div className={`relative -mt-20 transition-all duration-700 ease-out ${
                         !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                       }`}
-                      style={{ transitionDelay: isVisible ? `${index * 200 + 400}ms` : '0ms' }}>
+                      style={{ transitionDelay: isVisible ? `${index * 150 + 250}ms` : '0ms' }}>
                         <figure className="relative inline-block rounded-2xl shadow-xl overflow-hidden">
                           <Image
                             src={imageSrc}
@@ -222,7 +221,7 @@ export default function ProblemSection() {
                       <div className={`relative mb-0 transition-all duration-700 ease-out ${
                         !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                       }`}
-                      style={{ transitionDelay: isVisible ? `${index * 200 + 100}ms` : '0ms' }}>
+                      style={{ transitionDelay: isVisible ? `${index * 150 + 100}ms` : '0ms' }}>
                         <figure className="relative inline-block rounded-2xl shadow-xl overflow-hidden">
                           <Image
                             src={imageSrc}
@@ -242,9 +241,9 @@ export default function ProblemSection() {
 
                       {/* Content Card - Barely overlapping the image (for first and third cards) */}
                       <div className={`relative -mt-4 ml-8 -mr-6 transition-all duration-700 ease-out z-10 ${
-                        !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+                        !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                       }`}
-                      style={{ transitionDelay: isVisible ? `${index * 200 + 300}ms` : '0ms' }}>
+                      style={{ transitionDelay: isVisible ? `${index * 150 + 200}ms` : '0ms' }}>
                         <div className="bg-white rounded-xl shadow-xl p-6 border border-gray-100">
                           {/* Icon indicator */}
                           <div className="flex items-center mb-4">
@@ -284,9 +283,9 @@ export default function ProblemSection() {
 
         {/* Bottom summary */}
         <div className={`mt-12 sm:mt-16 text-center transition-all duration-700 ease-out ${
-          !isVisible ? 'opacity-0 translate-y-8' : 'opacity-100 translate-y-0'
+          !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
         }`}
-        style={{ transitionDelay: isVisible ? '800ms' : '0ms' }}>
+        style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}>
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
               <span className="font-semibold text-foreground">The result?</span> What should be simple business discovery becomes an expensive, time-consuming barrier that limits growth potential for both buyers and suppliers.
