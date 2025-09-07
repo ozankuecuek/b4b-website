@@ -75,7 +75,7 @@ function buildDictionary(locale: Locale) {
             representedBy: "Vertreten durch",
             contact: "Kontakt",
             company: {
-              name: "b4b ID UG i. G.",
+              name: "b4b ID UG",
               street: "Leuthener Straße 13",
               city: "10829 Berlin, Deutschland",
               managingDirector: "Ozan Kücük (Geschäftsführer)",
@@ -87,7 +87,7 @@ function buildDictionary(locale: Locale) {
             intro:
               "Diese Datenschutzerklärung erläutert, wie wir personenbezogene Daten verarbeiten, wenn Sie sich für unsere Warteliste anmelden und diese Website nutzen.",
             controller:
-              "Verantwortlicher: b4b ID UG i. G., Leuthener Straße 13, 10829 Berlin, Deutschland. E‑Mail: privacy@b4b.network",
+              "Verantwortlicher: b4b ID UG, Leuthener Straße 13, 10829 Berlin, Deutschland. E‑Mail: privacy@b4b.network",
             dataWeProcess:
               "Daten, die wir für die Warteliste verarbeiten: Ihre E‑Mail‑Adresse (erforderlich), die Formularquelle (z. B. Bereich der Seite), sowie automatisch übermittelte Informationen wie Browser‑User‑Agent und IP‑Adresse.",
             purposes:
@@ -183,7 +183,7 @@ function buildDictionary(locale: Locale) {
           representedBy: "Represented by",
           contact: "Contact",
           company: {
-            name: "b4b ID UG i. G.",
+            name: "b4b ID UG",
             street: "Leuthener Straße 13",
             city: "10829 Berlin, Germany",
             managingDirector: "Ozan Kücük (Managing Director)",
@@ -195,7 +195,7 @@ function buildDictionary(locale: Locale) {
           intro:
             "This Privacy Policy explains how we process personal data when you join our waitlist and use this website.",
           controller:
-            "Controller: b4b ID UG i. G., Leuthener Straße 13, 10829 Berlin, Germany. E‑mail: privacy@b4b.network",
+            "Controller: b4b ID UG, Leuthener Straße 13, 10829 Berlin, Germany. E‑mail: privacy@b4b.network",
           dataWeProcess:
             "Data we process for the waitlist: your e‑mail address (required), the form source (e.g. section of the site), your browser user‑agent and your IP address (automatically transmitted by your browser).",
           purposes:

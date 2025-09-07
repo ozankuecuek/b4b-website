@@ -50,12 +50,12 @@ export default function ProblemSection() {
   ] as const
 
   return (
-    <section ref={sectionRef} className="relative py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: '#E7ECEF' }}>
+    <section data-section="problem" ref={sectionRef} className="relative py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: '#E7ECEF' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-block">
             <span className="text-xs sm:text-sm font-semibold text-primary bg-primary/10 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6 inline-block tracking-wider uppercase">
-              Problem
+              THE PROBLEM
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight">
@@ -194,7 +194,7 @@ export default function ProblemSection() {
                       </div>
 
                       {/* Image Card - Below content for second card */}
-                      <div className={`relative -mt-20 transition-all duration-700 ease-out ${
+                      <div className={`relative -mt-4 transition-all duration-700 ease-out ${
                         !isVisible ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
                       }`}
                       style={{ transitionDelay: isVisible ? `${index * 150 + 250}ms` : '0ms' }}>
