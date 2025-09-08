@@ -30,6 +30,114 @@ function buildDictionary(locale: Locale) {
         reject: "Ablehnen",
         accept: "Akzeptieren",
       },
+      problem: {
+        badge: "DAS PROBLEM",
+        titlePrefix: "B2B E‑Commerce ist geprägt von",
+        titleHighlight: " erheblichen Reibungen",
+        titleSuffix: "",
+        lead:
+          "Es ist sowohl für Einkäufer als auch für Lieferanten mühsam, einander zu finden und neue Geschäftsbeziehungen aufzubauen.",
+        cards: [
+          {
+            title: "Kreditrisiko",
+            description:
+              "B2B Einkäufer bevorzugen den Kauf auf Rechnung zur Entlastung des Cashflows und verlagern damit das Kreditrisiko hoher Rechnungen auf die Lieferanten.",
+          },
+          {
+            title: "Komplexes Onboarding",
+            description:
+              "Um Risiken zu minimieren, setzen Lieferanten auf ein zeitaufwendiges und anspruchsvolles Onboarding – potenzielle Partnerschaften scheitern oft schon vor dem Start.",
+          },
+          {
+            title: "Aufwendige Synchronisierung",
+            description:
+              "Auch nach dem Onboarding bleibt es mühsam für B2B Einkäufer: Konto‑ und Bestelldaten müssen laufend mit den eigenen Systemen synchronisiert werden – manuell oder durch eine teure Einmal‑Integration.",
+          },
+        ],
+        resultLead: "Das Ergebnis?",
+        resultBody:
+          "Was eigentlich einfaches Neugeschäft sein sollte, wird zur teuren, zeitaufwendigen Hürde – und begrenzt das Wachstumspotenzial allerseits.",
+      },
+      solution: {
+        badge: "UNSERE LÖSUNG",
+        titlePrefix: "Ein Account, ",
+        titleHighlight: "viele Shops",
+        lead:
+          "b4b beseitigt technische und kommerzielle Hürden zwischen B2B‑Einkäufern und B2B‑Lieferanten, damit sie sich auf das Wachstum ihres Kerngeschäfts fokussieren können.",
+        cards: [
+          {
+            tag: "Vertrauen",
+            title: "Sofortiges Onboarding",
+            description:
+              "Wir geben B2B‑Einkäufern vertrauenswürdige digitale Identitäten. So können sie sich mit einem Klick bei allen B2B‑Shops anmelden, die b4b als Identity‑Provider anerkennen – ähnlich wie Social Logins im B2C. Beim ersten Anmelden bei einem teilnehmenden Shop teilen wir relevante Kontodetails für eine sofortige Registrierung.",
+          },
+          {
+            tag: "Verkaufen",
+            title: "Sofortige Kreditlinien",
+            description:
+              "Beim ersten Anmelden stellen wir dem B2B‑Einkäufer eine sofortige, lieferantenspezifische Kreditlinie bereit. Dadurch sind sofortige, versandbereite Bestellungen möglich – ohne Risiko für Lieferanten dank unserer exklusiven Versicherungslösungen.",
+          },
+          {
+            tag: "Verbinden",
+            title: "Sofortige Synchronisierung",
+            description:
+              "Einmal integrieren, immer profitieren: b4b verbindet als Bindeglied beide Seiten über Standard‑Integrationen und eine Translation‑Engine, die alle relevanten Datenpunkte zwischen Beschaffungssystemen und Shop‑Systemen abgleicht.",
+          },
+        ],
+        wallet: {
+          heading: "So treten Sie dem <span class=\"text-accent\">b4b Netzwerk</span> bei",
+          toggleSuppliers: "Für Lieferanten",
+          toggleBuyers: "Für Einkäufer",
+          suppliers: {
+            steps: [
+              {
+                step: "1",
+                title: "Kontakt aufnehmen",
+                description:
+                  "Wir geben Ihnen einen Überblick über unser Ökosystem und richten für Sie eine exklusive Warenkreditversicherung ein, die Sie und das Netzwerk vor Ausfallrisiken schützt. Sie zahlen nur für tatsächlich über b4b generierte Bestellungen.",
+              },
+              {
+                step: "2",
+                title: "Shop verbinden",
+                description:
+                  "Verbinden Sie Ihren Shop mit unserer Plattform, damit wir verifizierte Unternehmens‑ und Nutzeridentitäten, gedeckte Kreditlinien und Bestelldaten austauschen können. Einmal integrieren, immer profitoeren – wir übernehmen das Mapping zu den Beschaffungslösungen unserer Einkäufer.",
+              },
+              {
+                step: "3",
+                title: "Neue Kunden gewinnen",
+                description:
+                  "Platzieren Sie auf Ihrer Login‑Seite ‘Mit b4b anmelden’. B2B‑Einkäufer können sich dann sofort anmelden. Beim ersten Login erhalten Sie alle Daten inklusive gedeckter Kreditlinie, um sofortige, versandbereite Bestellungen zu ermöglichen.",
+              },
+            ],
+            footer:
+              "Als Lieferant beitreten und sofort verifizierte B2B‑Einkäufer erreichen",
+          },
+          buyers: {
+            steps: [
+              {
+                step: "1",
+                title: "b4b‑Konto erstellen",
+                description:
+                  "Wir verifizieren Ihr Unternehmen, Ihre persönlichen Angaben und Ihre Vertretungsberechtigung. Das dauert weniger als 10 Minuten. Anschließend können Sie Kolleginnen und Kollegen hinzufügen und Rollen & Rechte verwalten.",
+              },
+              {
+                step: "2",
+                title: "Einkauf starten",
+                description:
+                  "Mit Ihrem b4b‑Konto können Sie sich nahtlos bei allen teilnehmenden B2B‑Shops anmelden. Beim ersten Login teilen wir die relevanten Kontodaten und richten eine exklusive Kreditlinie beim jeweiligen Lieferanten ein – Kauf auf Rechnung sofort möglich.",
+              },
+              {
+                step: "3",
+                title: "Eine zentrale Drehscheibe, viele Verbindungen",
+                description:
+                  "Im b4b‑Dashboard behalten Sie alle Bestellungen im Überblick. Aktualisieren Sie Ihre Stammdaten, informieren wir automatisch alle verbundenen B2B‑Shops – Ihre Daten bleiben überall konsistent.",
+              },
+            ],
+            footer:
+              "Als Einkäufer beitreten und mit sofortigen Kreditlinien bei vertrauenswürdigen Lieferanten einkaufen",
+          },
+        },
+      },
       hero: {
         titlePrefix: "Social Login,",
         titleMiddle: "",
@@ -127,7 +235,7 @@ function buildDictionary(locale: Locale) {
     ui: {
       imprint: "Imprint",
       privacyPolicy: "Privacy policy",
-      cookieSettings: "Cookie settings",
+      cookieSettings: "Cookie Settings",
     },
     cookies: {
       title: "Cookies",
@@ -137,6 +245,114 @@ function buildDictionary(locale: Locale) {
       learnMore: "Privacy policy",
       reject: "Reject",
       accept: "Accept",
+    },
+    problem: {
+      badge: "THE PROBLEM",
+      titlePrefix: "B2B e‑commerce faces",
+      titleHighlight: " significant friction",
+      titleSuffix: " today",
+      lead:
+        "It is very cumbersome for buyers and suppliers alike to discover one another and build new trade relations.",
+      cards: [
+        {
+          title: "Credit Risk Burden",
+          description:
+            "Buyers prefer deferred terms to ease cash flow, shifting large-invoice credit risk to suppliers.",
+        },
+        {
+          title: "Complex Onboarding",
+          description:
+            "To stay safe, suppliers impose a time-consuming and demanding onboarding process, discouraging potential partnerships before they even start.",
+        },
+        {
+          title: "Tedious Synchronization",
+          description:
+            "After onboarding, the buyer experience remains tedious: account and order data must constantly be synchronized with their procurement suite, either manually or with a costly one-off integration.",
+        },
+      ],
+      resultLead: "The result?",
+      resultBody:
+        "What should be simple business discovery becomes an expensive, time-consuming barrier that limits growth potential for both buyers and suppliers.",
+    },
+    solution: {
+      badge: "OUR SOLUTION",
+      titlePrefix: "One account, ",
+      titleHighlight: "many shops",
+      lead:
+        "b4b removes technical and commercial barriers between B2B buyers and suppliers so they can find each other, build trusted partnerships, and seamlessly exchange value in a digital world.",
+      cards: [
+        {
+          tag: "Trust",
+          title: "Instant Onboarding",
+          description:
+            "We issue trusted digital identities to B2B buyers so they can access all B2B online shops that recognize b4b as an Identity Provider — with one click, much like social logins in B2C. On first sign‑in to a participating shop, we share relevant account details for instant account creation.",
+        },
+        {
+          tag: "Transaction",
+          title: "Instant Credit Lines",
+          description:
+            "On first sign‑in, we issue a supplier‑specific instant credit line to the B2B buyer. This enables immediate shipping orders with zero risk for suppliers thanks to exclusive insurance arrangements.",
+        },
+        {
+          tag: "Transformation",
+          title: "Instant Synchronization",
+          description:
+            "Integrate once and for all: b4b acts as connective tissue via standard integrations and a translation engine that maps all data points between buyer procurement systems and supplier storefronts.",
+        },
+      ],
+      wallet: {
+        heading: "How to join the <span class=\"text-accent\">b4b network</span>",
+        toggleSuppliers: "For Suppliers",
+        toggleBuyers: "For Buyers",
+        suppliers: {
+          steps: [
+            {
+              step: "1",
+              title: "Reach out to us",
+              description:
+                "We’ll walk you through our ecosystem and set you up with an exclusive trade credit insurance arrangement to protect you and the network. You only pay for orders actually generated via the b4b network.",
+            },
+            {
+              step: "2",
+              title: "Connect your store",
+              description:
+                "Connect your store to our platform so we can exchange verified business and user identities, covered credit lines, and order information. Integrate once — we’ll handle the mapping to buyers’ procurement suites.",
+            },
+            {
+              step: "3",
+              title: "Start onboarding new customers",
+              description:
+                "Place ‘Sign in with b4b’ on your login page. When a buyer signs in for the first time, you receive all relevant data plus a covered credit limit to enable instant shipping orders.",
+            },
+          ],
+          footer:
+            "Join as a supplier and reach verified B2B buyers instantly",
+        },
+        buyers: {
+          steps: [
+            {
+              step: "1",
+              title: "Create b4b account",
+              description:
+                "During registration, we verify your business and personal information as well as your authority to represent your company. It takes less than 10 minutes. You can add colleagues and manage roles & rights.",
+            },
+            {
+              step: "2",
+              title: "Start shopping",
+              description:
+                "With your b4b account, you can seamlessly sign in to all participating B2B online shops. On the first sign‑in with a shop, we share relevant account details and set up an exclusive credit line so you can purchase on account right away.",
+            },
+            {
+              step: "3",
+              title: "One central hub, many connections",
+              description:
+                "The b4b Dashboard gives you a clear overview of all orders across the network. Whenever you update your account details, we notify all connected shops to keep information consistent everywhere.",
+            },
+          ],
+          footer:
+            "Join as a buyer and access trusted suppliers with instant credit lines",
+        },
+      },
     },
     hero: {
       titlePrefix: "Social Login,",

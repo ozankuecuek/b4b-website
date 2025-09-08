@@ -3,10 +3,12 @@
 import { CreditCard, Settings, RotateCcw } from "lucide-react"
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
+import { useTranslations } from "@/lib/i18n"
 
 
 
 export default function ProblemSection() {
+  const t = useTranslations()
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -31,23 +33,11 @@ export default function ProblemSection() {
     return () => observer.disconnect()
   }, [])
 
-  const problemCards = [
-    {
-      icon: CreditCard,
-      title: "Credit Risk Burden",
-      description: "Buyers prefer deferred payment terms to optimize cash flow, requiring suppliers to absorb the credit risk of large, potentially unpaid invoices.",
-    },
-    {
-      icon: Settings,
-      title: "Complex Onboarding",
-      description: "To stay safe, suppliers impose a time-consuming and demanding onboarding process, discouraging potential partnerships before they even start.",
-    },
-    {
-      icon: RotateCcw,
-      title: "Tedious Synchronization",
-      description: "After onboarding, the buyer experience remains tedious: account and order data must constantly be synchronized with their procurement suite, either manually or with a costly one-off integration.",
-    },
-  ] as const
+  const problemCards = t.problem.cards.map((c, idx) => ({
+    icon: idx === 0 ? CreditCard : idx === 1 ? Settings : RotateCcw,
+    title: c.title,
+    description: c.description,
+  }))
 
   return (
     <section data-section="problem" ref={sectionRef} className="relative py-16 sm:py-20 md:py-24 lg:py-32 overflow-hidden" style={{ backgroundColor: '#E7ECEF' }}>
@@ -55,15 +45,15 @@ export default function ProblemSection() {
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-block">
             <span className="text-xs sm:text-sm font-semibold text-primary bg-primary/10 px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6 inline-block tracking-wider uppercase">
-              THE PROBLEM
+              {t.problem.badge}
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 sm:mb-6 max-w-4xl mx-auto leading-tight">
-            B2B e-commerce faces
-            <span className="text-primary"> significant friction</span> today
+            {t.problem.titlePrefix}
+            <span className="text-primary">{t.problem.titleHighlight}</span>{t.problem.titleSuffix ? ` ${t.problem.titleSuffix}` : ""}
           </h2>
           <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed px-4">
-            It is very cumbersome for buyers and suppliers alike to discover one another and build new trade relations.
+            {t.problem.lead}
           </p>
         </div>
 
@@ -288,7 +278,7 @@ export default function ProblemSection() {
         style={{ transitionDelay: isVisible ? '600ms' : '0ms' }}>
           <div className="max-w-4xl mx-auto px-4">
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">The result?</span> What should be simple business discovery becomes an expensive, time-consuming barrier that limits growth potential for both buyers and suppliers.
+              <span className="font-semibold text-foreground">{t.problem.resultLead}</span> {t.problem.resultBody}
             </p>
           </div>
         </div>
