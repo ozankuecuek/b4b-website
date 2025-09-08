@@ -29,8 +29,8 @@ serve(async (req) => {
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: [email],
-        subject: "You're on the B4B waitlist 🎉",
-        html: `<p>Thanks for joining the B4B waitlist${source ? ` (via ${source})` : ""}!</p>`,
+        subject: "You're on the b4b waitlist 🎉",
+        html: `<p>Thanks for joining the b4b waitlist. You will hear from us soon.${source ? ` (via ${source})` : ""}!</p>`,
       }),
     });
 

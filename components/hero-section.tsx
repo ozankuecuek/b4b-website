@@ -3,8 +3,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useEffect, useLayoutEffect, useRef, useState, useMemo } from "react"
-import Link from "next/link"
-import LayoverModal from "@/components/layover-modal"
 import { Zap, CreditCard, ShoppingCart, ShieldCheck, ChevronRightIcon, CheckIcon } from "lucide-react"
 import { HyperText } from "@/components/magicui/hyper-text"
 import { AnimatedSubscribeButton } from "@/components/magicui/animated-subscribe-button"
@@ -29,6 +27,7 @@ export default function HeroSection() {
   const [isOnBusinessModelSection, setIsOnBusinessModelSection] = useState(false)
   const [isOnOurAskSection, setIsOnOurAskSection] = useState(false)
   const [isOnClosingSection, setIsOnClosingSection] = useState(false)
+  const [isOnProblemOrSolution, setIsOnProblemOrSolution] = useState(false)
 
   // Path data for smoother, curvy cursor motion
   const [cursorPath, setCursorPath] = useState<string>("")
@@ -60,24 +59,6 @@ export default function HeroSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
 
-  // Footer links (Imprint / Privacy) replicated locally
-  type LegalModal = "imprint" | "privacy" | null
-  const [openLegal, setOpenLegal] = useState<LegalModal>(null)
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenLegal(null)
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [])
-  useEffect(() => {
-    window.openPrivacyPolicy = () => setOpenLegal("privacy")
-    return () => {
-      if (window.openPrivacyPolicy) {
-        delete window.openPrivacyPolicy
-      }
-    }
-  }, [])
 
   // Scroll detection for logo color change
   useEffect(() => {
@@ -125,6 +106,26 @@ export default function HeroSection() {
         const problemRect = problemSection.getBoundingClientRect()
         const whiteBackgroundReached = problemRect.top <= 0
         setIsOnWhiteBackground(whiteBackgroundReached)
+      }
+
+      // Detect overlap of sticky logo with Problem or Solution sections
+      const logoEl = document.getElementById('sticky-logo')
+      const problemEl = document.querySelector('section[data-section="problem"]')
+      const solutionEl = document.querySelector('section[data-section="solution"]')
+      if (logoEl && (problemEl || solutionEl)) {
+        const logoRect = logoEl.getBoundingClientRect()
+        const isOver = (el: Element | null) => {
+          if (!el) return false
+          const r = el.getBoundingClientRect()
+          const verticallyOverlaps = logoRect.top < r.bottom && logoRect.bottom > r.top
+          const horizontallyOverlaps = logoRect.left < r.right && logoRect.right > r.left
+          return verticallyOverlaps && horizontallyOverlaps
+        }
+        const onProblem = isOver(problemEl)
+        const onSolution = isOver(solutionEl)
+        setIsOnProblemOrSolution(onProblem || onSolution)
+      } else {
+        setIsOnProblemOrSolution(false)
       }
     }
     handleScroll()
@@ -254,7 +255,7 @@ export default function HeroSection() {
         <div className="container mx-auto px-6 lg:px-12">
           
           {/* Logo fixed to top-left, aligned with language selector */}
-          <StickyLogoLang isOnWhiteBackground={isOnWhiteBackground} isOnBusinessModelSection={isOnBusinessModelSection} isOnOurAskSection={isOnOurAskSection} isOnClosingSection={isOnClosingSection} />
+          <StickyLogoLang isOnWhiteBackground={isOnWhiteBackground} isOnBusinessModelSection={isOnBusinessModelSection} isOnOurAskSection={isOnOurAskSection} isOnClosingSection={isOnClosingSection} isOnProblemOrSolution={isOnProblemOrSolution} />
 
           {/* Main Content Grid */}
           <div className="flex items-center justify-center min-h-screen pb-20 [@media_(min-width:1240px)]:pb-0">
@@ -539,85 +540,6 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
-      {/* Bottom-left legal/cookie links */}
-      <div className="absolute bottom-6 left-6 z-40">
-        <nav className="flex items-center gap-6">
-          <Link
-            href="#imprint"
-            onClick={(e) => { e.preventDefault(); setOpenLegal("imprint") }}
-            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
-          >
-            {t.hero.legal.imprint}
-          </Link>
-          <Link
-            href="#privacy"
-            onClick={(e) => { e.preventDefault(); setOpenLegal("privacy") }}
-            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors"
-          >
-            {t.hero.legal.privacyPolicy}
-          </Link>
-          <button
-            type="button"
-            onClick={() => window.openCookieSettings?.()}
-            className="text-sm text-white/80 hover:text-white underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-sm transition-colors cursor-pointer"
-          >
-            {t.hero.legal.cookieSettings}
-          </button>
-        </nav>
-      </div>
-
-      {/* Legal modals */}
-      <LayoverModal
-        open={!!openLegal}
-        title={openLegal === "imprint" ? t.hero.legal.modalTitles.imprint : t.hero.legal.modalTitles.privacy}
-        onRequestClose={() => setOpenLegal(null)}
-        zIndex={openLegal === "privacy" ? 60 : 50}
-      >
-        {openLegal === "imprint" ? <ImprintContent /> : <PrivacyContent />}
-      </LayoverModal>
-    </div>
-  )
-}
-
-function ImprintContent() {
-  const t = useTranslations()
-  return (
-    <div className="prose prose-sm max-w-none">
-      <p><strong>{t.hero.legal.imprintContent.serviceProvider}</strong></p>
-      <p>
-        {t.hero.legal.imprintContent.company.name}<br />
-        {t.hero.legal.imprintContent.company.street}<br />
-        {t.hero.legal.imprintContent.company.city}
-      </p>
-      <p>
-        <strong>{t.hero.legal.imprintContent.representedBy}</strong><br />
-        {t.hero.legal.imprintContent.company.managingDirector}
-      </p>
-      <p>
-        <strong>{t.hero.legal.imprintContent.contact}</strong><br />
-        E‑mail: {t.hero.legal.imprintContent.company.email}
-      </p>
-    </div>
-  )
-}
-
-function PrivacyContent() {
-  const t = useTranslations()
-  return (
-    <div className="prose prose-sm max-w-none">
-      <p className="text-muted-foreground">{t.hero.legal.privacyContent.lastUpdatedPrefix} {new Date().toISOString().slice(0, 10)}</p>
-      <p>{t.hero.legal.privacyContent.intro}</p>
-      <p>{t.hero.legal.privacyContent.controller}</p>
-      <p>{t.hero.legal.privacyContent.dataWeProcess}</p>
-      <p>{t.hero.legal.privacyContent.purposes}</p>
-      <p>{t.hero.legal.privacyContent.legalBases}</p>
-      <p>{t.hero.legal.privacyContent.recipients}</p>
-      <p>{t.hero.legal.privacyContent.transfers}</p>
-      <p>{t.hero.legal.privacyContent.retention}</p>
-      <p>{t.hero.legal.privacyContent.rights}</p>
-      <p>{t.hero.legal.privacyContent.withdrawal}</p>
-      <p>{t.hero.legal.privacyContent.complaint}</p>
-      <p>{t.hero.legal.privacyContent.minors}</p>
     </div>
   )
 }

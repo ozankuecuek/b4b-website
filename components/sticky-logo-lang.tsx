@@ -5,10 +5,13 @@ interface StickyLogoLangProps {
   isOnBusinessModelSection?: boolean
   isOnOurAskSection?: boolean
   isOnClosingSection?: boolean
+  isOnProblemOrSolution?: boolean
 }
 
-export default function StickyLogoLang({ isOnWhiteBackground, isOnBusinessModelSection, isOnOurAskSection, isOnClosingSection }: StickyLogoLangProps) {
-  const logoFill = isOnClosingSection
+export default function StickyLogoLang({ isOnWhiteBackground, isOnBusinessModelSection, isOnOurAskSection, isOnClosingSection, isOnProblemOrSolution }: StickyLogoLangProps) {
+  const logoFill = isOnProblemOrSolution
+    ? "hsl(var(--primary))"
+    : isOnClosingSection
     ? "hsl(198, 89%, 82%)"
     : isOnOurAskSection
     ? "hsl(198, 89%, 82%)"
@@ -18,7 +21,7 @@ export default function StickyLogoLang({ isOnWhiteBackground, isOnBusinessModelS
     ? "hsl(225, 84%, 24%)"
     : "#A6E1FA"
   return (
-    <div className="fixed top-[44px] left-6 lg:top-[49px] [@media_(min-width:1024px)_and_(max-width:1279px)]:[left:calc((100vw-1024px)/2+3rem)] [@media_(min-width:1280px)_and_(max-width:1449px)]:[left:calc((100vw-1280px)/2+3rem)] [@media_(min-width:1450px)]:left-32 z-50 flex items-center gap-4">
+    <div id="sticky-logo" className="fixed top-[44px] left-6 lg:top-[49px] [@media_(min-width:1024px)_and_(max-width:1279px)]:[left:calc((100vw-1024px)/2+3rem)] [@media_(min-width:1280px)_and_(max-width:1449px)]:[left:calc((100vw-1280px)/2+3rem)] [@media_(min-width:1450px)]:left-32 z-50 flex items-center gap-4">
       <svg xmlns="http://www.w3.org/2000/svg"
            viewBox="0 13 115.35 37.55"
            width="125"
